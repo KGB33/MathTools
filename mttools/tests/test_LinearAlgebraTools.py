@@ -1,7 +1,6 @@
 import unittest
 from LinearAlgebraTools import *
 from Exceptions import DimensionError, NoInverseWarning
-from numpy import sqrt
 
 
 class TestMatrix(unittest.TestCase):

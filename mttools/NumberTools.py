@@ -1,5 +1,4 @@
-import numpy as np
-
+from AlgebraTools import sqrt
 
 def perfect_factors(n):
     """
@@ -15,7 +14,7 @@ def perfect_factors(n):
     # likewise n is always a divisor
     yield n
 
-    largest = int(np.sqrt(n))
+    largest = int(sqrt(n))
 
     # special-case square numbers to avoid yielding the same divisor twice
     if largest * largest == n:

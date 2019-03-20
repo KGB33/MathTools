@@ -28,7 +28,7 @@ class TestTimer(unittest.TestCase):
         result = mock_stdout.getvalue()
         time_elapsed = float(result[-7:-3])
         unit = result[-2:-1]
-        self.assertEqual(.5, time_elapsed)
+        self.assertAlmostEqual(.5, time_elapsed)
         self.assertEqual('s', unit)
 
     @patch('sys.stdout', new_callable=io.StringIO)

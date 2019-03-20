@@ -1,4 +1,4 @@
-import numpy as np
+from AlgebraTools import sqrt
 
 
 def distance(cord_1, cord_2):
@@ -24,4 +24,4 @@ def distance(cord_1, cord_2):
         sum_squares = 0
         for i, j in zip(cord_1, cord_2):
             sum_squares += pow(i - j, 2)
-        return np.sqrt(sum_squares)
+        return sqrt(sum_squares)
