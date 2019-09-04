@@ -1,30 +1,31 @@
-import unittest
-from CalculusTools import *
 from math import isinf
 
+from pytest import approx
 
-class TestLimit(unittest.TestCase):
+from mttools.CalculusTools import limit
 
+
+class TestLimit:
     def test_func(self):
         f = lambda x: x * x
-        self.assertAlmostEqual(0, limit(f, 0))
-        self.assertAlmostEqual(4, limit(f, 2))
-        self.assertAlmostEqual(4, limit(f, -2))
+        assert approx(0) == approx(limit(f, 0))
+        assert 4 == approx(limit(f, 2))
+        assert 4 == approx(limit(f, -2))
 
     def test_hole(self):
-        f = lambda x: ((x + 3)*(x - 2))/((x + 3)*(x + 2))
-        self.assertAlmostEqual(5, limit(f, -3))
+        f = lambda x: ((x + 3) * (x - 2)) / ((x + 3) * (x + 2))
+        assert 5 == approx(limit(f, -3))
 
     def test_vertical_asymptote_no_limit(self):
-        f = lambda x: ((x + 3)*(x - 2)) / ((x + 3)*(x + 2))
-        self.assertIsNone(limit(f, -2))
+        f = lambda x: ((x + 3) * (x - 2)) / ((x + 3) * (x + 2))
+        assert limit(f, -2) is None
 
     def test_vertical_asymptote_has_limit(self):
         f = lambda x: 1 / (x * x)
-        self.assertTrue(isinf(limit(f, 0)))
-        self.assertTrue(limit(f, 0) > 0)
+        assert isinf(limit(f, 0))
+        assert limit(f, 0) > 0
 
     def test_vertical_asymptote_has_neg_limit(self):
         f = lambda x: -1 / (x * x)
-        self.assertTrue(isinf(limit(f, 0)))
-        self.assertTrue(limit(f, 0) < 0)
+        assert isinf(limit(f, 0))
+        assert limit(f, 0) < 0
