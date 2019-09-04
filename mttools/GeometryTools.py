@@ -1,4 +1,4 @@
-from AlgebraTools import sqrt
+from mttools.AlgebraTools import sqrt
 
 
 def distance(cord_1, cord_2):

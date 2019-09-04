@@ -1,5 +1,6 @@
-from Exceptions import DimensionError, NoInverseWarning, \
-    UnderDeterminedError, InconsistentWarning, InfiniteSolutionsWaring
+from mttools.Exceptions import (DimensionError, InconsistentWarning, InfiniteSolutionsWaring, NoInverseWarning,
+                                UnderDeterminedError)
+
 
 
 class Matrix(object):
@@ -39,7 +40,7 @@ class Matrix(object):
         for r in self.array:
             result += "[ "
             for n in r:
-                result += str(n) + ', '
+                result += str(n) + ", "
             result += "]\n"
         return result
 
@@ -53,10 +54,17 @@ class Matrix(object):
             Product
         """
         if self.num_columns == other.num_rows:
-            new_array = self.zero_array(num_rows=self.num_rows, num_columns=other.num_columns)
+            new_array = self.zero_array(
+                num_rows=self.num_rows, num_columns=other.num_columns
+            )
             for r, row in enumerate(new_array):
                 for c, val in enumerate(row):
-                    new_array[r][c] = sum([self.array[r][k] * other.array[k][c] for k in range(self.num_columns)])
+                    new_array[r][c] = sum(
+                        [
+                            self.array[r][k] * other.array[k][c]
+                            for k in range(self.num_columns)
+                        ]
+                    )
             return Matrix(new_array)
         else:
             raise DimensionError
@@ -117,7 +125,9 @@ class Matrix(object):
         """
         Transposes matrix
         """
-        new_array = self.zero_array(num_rows=self.num_columns, num_columns=self.num_rows)
+        new_array = self.zero_array(
+            num_rows=self.num_columns, num_columns=self.num_rows
+        )
         for r, row in enumerate(self.array):
             for c, val in enumerate(row):
                 new_array[c][r] = val
@@ -162,7 +172,9 @@ class Matrix(object):
         :param scalar: (numeric, Optional, default=1)
             optional multiple for from_row
         """
-        self.array[to_row] = [scalar * y + x for x, y in zip(self.array[to_row], self.array[from_row])]
+        self.array[to_row] = [
+            scalar * y + x for x, y in zip(self.array[to_row], self.array[from_row])
+        ]
 
     def rref(self):
         """
@@ -182,7 +194,7 @@ class Matrix(object):
                         return
             self.swap_rows(i, r)
             lv = self.array[r][lead]
-            self.multiply_row(r, (1/lv))
+            self.multiply_row(r, (1 / lv))
             for i in range(self.num_rows):
                 if i != r:
                     lv = self.array[i][lead]
@@ -308,7 +320,9 @@ class SquareMatrix(Matrix):
         :return: (SquareMatrix)
             The minor for Row, Col provided
         """
-        new_array = self.zero_array(num_columns=self.num_columns-1, num_rows=self.num_rows-1)
+        new_array = self.zero_array(
+            num_columns=self.num_columns - 1, num_rows=self.num_rows - 1
+        )
         i = 0
         for r, row in enumerate(self.array):
             if r == row_number - 1:
@@ -343,7 +357,7 @@ class SquareMatrix(Matrix):
                 det_m = m.determinate()
             else:
                 det_m = m
-            total += (val * sign * det_m)
+            total += val * sign * det_m
         return total
 
     def trace(self):
@@ -377,7 +391,7 @@ def solve_linear_equations(*args):
 
     # Create solution dict
     solution = {key: None for key in args[0]}
-    del solution['sol']  # removes unneeded key
+    del solution["sol"]  # removes unneeded key
 
     # Convert Dicts to matrix
     to_array = []
@@ -410,5 +424,3 @@ def solve_linear_equations(*args):
 
     # Return solution
     return solution
-
-
