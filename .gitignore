@@ -1,3 +1,6 @@
 .idea
 .pytest_cache
 MtTools.egg-info
+.venv
+settings.json
+__pycache__
