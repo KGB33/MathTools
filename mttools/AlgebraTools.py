@@ -22,13 +22,15 @@ def quadratic_formula(a, b, c):
 
     # 3 Cases
     if det > 0:  # Two real solutions
-        solutions = ((-b + sqrt(det))/(2 * a), (-b - sqrt(det))/(2 * a))
+        solutions = ((-b + sqrt(det)) / (2 * a), (-b - sqrt(det)) / (2 * a))
     elif det == 0:  # One Real solution
-        solutions = (-b/(2 * a),)
+        solutions = (-b / (2 * a),)
     elif det < 0:  # Two complex solutions
 
-        solutions = (complex(-b / (2 * a), + sqrt(-det)/(2 * a)),
-                     complex(-b / (2 * a), - sqrt(-det)/(2 * a)),)
+        solutions = (
+            complex(-b / (2 * a), +sqrt(-det) / (2 * a)),
+            complex(-b / (2 * a), -sqrt(-det) / (2 * a)),
+        )
     return solutions
 
 
@@ -50,12 +52,10 @@ def sqrt(num):
 
     # Newton/babylonian method
     max_iterations = 20  # Number of correct digits is approx doubled each iteration
-    r = num/2
+    r = num / 2
     for _ in range(0, max_iterations):
-        r = 0.5 * (r + num/r)
+        r = 0.5 * (r + num / r)
 
     if is_negative:
-        return r*1j
+        return r * 1j
     return r
-
-
