@@ -1,6 +1,10 @@
-from mttools.Exceptions import (DimensionError, InconsistentWarning, InfiniteSolutionsWaring, NoInverseWarning,
-                                UnderDeterminedError)
-
+from mttools.Exceptions import (
+    DimensionError,
+    InconsistentWarning,
+    InfiniteSolutionsWaring,
+    NoInverseWarning,
+    UnderDeterminedError,
+)
 
 
 class Matrix(object):

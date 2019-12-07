@@ -8,7 +8,7 @@ from mttools.CalculusTools import limit
 class TestLimit:
     def test_func(self):
         f = lambda x: x * x
-        assert approx(0) == approx(limit(f, 0))
+        assert 0 == approx(limit(f, 0))
         assert 4 == approx(limit(f, 2))
         assert 4 == approx(limit(f, -2))
 
