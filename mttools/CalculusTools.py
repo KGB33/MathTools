@@ -1,5 +1,6 @@
 import math
 
+
 def derivative(f):
     """
     Takes a lambda function and returns the derivative as a lambda function
@@ -7,7 +8,7 @@ def derivative(f):
     :return: f'(x)
     """
     g = lambda x, h: f(x + h)
-    return(limit(()))
+    return limit(())
     # TODO Diferentiation
 
 
