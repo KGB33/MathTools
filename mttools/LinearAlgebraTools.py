@@ -6,6 +6,10 @@ from mttools.Exceptions import (
     UnderDeterminedError,
 )
 
+from math import sqrt
+
+import numbers
+
 
 class Vector:
     def __init__(self, coords):
@@ -16,6 +20,51 @@ class Vector:
             self.dimension = len(coords)
         else:
             raise TypeError("Coords must be a list or tuple.")
+
+    @property
+    def magnitude(self):
+        return sqrt(sum([a * a for a in self.coords]))
+
+    @property
+    def direction(self):
+        return [a / self.magnitude for a in self.coords]
+
+    def __add__(self, other):
+        if isinstance(other, Vector):
+            if self.dimension != other.dimension:
+                raise DimensionError(
+                    f"Cannot add Vector with {self.dimension=} to Vector with {other.dimension=}."
+                )
+            new_coords = [a + b for a, b in zip(self.coords, other.coords)]
+            return Vector(new_coords)
+        else:
+            raise TypeError(f"Expected Type 'Vector', got type '{type(other)}'.")
+
+    def __sub__(self, other):
+        if isinstance(other, Vector):
+            if self.dimension != other.dimension:
+                raise DimensionError(
+                    f"Cannot add Vector with {self.dimension=} to Vector with {other.dimension=}."
+                )
+            new_coords = [a - b for a, b in zip(self.coords, other.coords)]
+            return Vector(new_coords)
+        else:
+            raise TypeError(f"Expected Type 'Vector', got type '{type(other)}'.")
+
+    def __mul__(self, other):
+        # Vector Mul
+        if isinstance(other, Vector):
+            raise NotImplementedError
+
+        # Scalar Mul
+        elif isinstance(other, numbers.Real):
+            new_coords = [other * a for a in self.coords]
+            return Vector(new_coords)
+
+        else:
+            raise TypeError(
+                f"Expected Type 'Vector' or 'numbers.real', got type '{type(other)}'."
+            )
 
     def __str__(self):
         return f"Vector: {list(self.coords)}"
