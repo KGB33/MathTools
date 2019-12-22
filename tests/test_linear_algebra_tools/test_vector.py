@@ -15,6 +15,11 @@ def v2():
 
 
 @pytest.fixture
+def v0():
+    return Vector([0,] * 3)
+
+
+@pytest.fixture
 def not_vectors():
     return [
         "string",
@@ -131,10 +136,45 @@ class TestScalarMul:
 
 
 class TestVectorMul:
+    # Dot Product
+
+    @pytest.mark.xfail(reason="Not implemented", run=False)
     def test_not_implemented(self, v1, v2):
         with pytest.raises(NotImplementedError) as excinfo:
             v1 * v2
         assert "NotImplementedError" in str(excinfo)
+
+    def test_mul_self(self, v1, v2):
+        assert 014.00 == v1 * v1
+        assert 101.25 == v2 * v2
+
+    def test_mul(self, v1, v2):
+        assert 30 == v1 * v2
+
+    def test_zero_vector(self, v1, v2, v0):
+        assert 0 == v0 * v1
+        assert 0 == v0 * v2
+
+    def test_communitive_property(self, v1, v2):
+        assert v1 * v2 == v2 * v1
+
+    def test_not_vector(self, v1, not_vectors):
+        for value in not_vectors:
+            with pytest.raises(TypeError) as excinfo:
+                new_v = v1 * value
+            assert (
+                f"Expected Type 'Vector' or 'numbers.real', got type '{type(value)}'."
+                == str(excinfo.value)
+            )
+
+    def test_diff_dim(self, v1):
+        v = Vector([3,] * 5)
+        with pytest.raises(DimensionError) as excinfo:
+            v * v1
+        assert (
+            f"Cannot compute dot product between Vector with self.dimension=5 and Vector with other.dimension=3."
+            == str(excinfo.value)
+        )
 
 
 class TestMagnitude:

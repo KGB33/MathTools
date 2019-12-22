@@ -54,9 +54,13 @@ class Vector:
             raise TypeError(f"Expected Type 'Vector', got type '{type(other)}'.")
 
     def __mul__(self, other):
-        # Vector Mul
+        # Dot Product
         if isinstance(other, Vector):
-            raise NotImplementedError
+            if self.dimension != other.dimension:
+                raise DimensionError(
+                    f"Cannot compute dot product between Vector with {self.dimension=} and Vector with {other.dimension=}."
+                )
+            return sum([a * b for a, b in zip(self.coords, other.coords)])
 
         # Scalar Mul
         elif isinstance(other, numbers.Real):
