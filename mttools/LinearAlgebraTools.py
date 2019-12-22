@@ -6,7 +6,7 @@ from mttools.Exceptions import (
     UnderDeterminedError,
 )
 
-from math import sqrt
+from math import sqrt, acos, pi
 
 import numbers
 
@@ -71,6 +71,23 @@ class Vector:
             raise TypeError(
                 f"Expected Type 'Vector' or 'numbers.real', got type '{type(other)}'."
             )
+
+    def angle(self, other, unit="radians"):
+        if isinstance(other, Vector):
+            if self.dimension != other.dimension:
+                raise DimensionError(
+                    f"Cannot compute angle between Vector with {self.dimension=} and Vector with {other.dimension=}."
+                )
+
+            # Compute
+            # theta = arccos(a · b /|a| × |b|)
+            theta = acos((self * other) / (self.magnitude * other.magnitude))
+            if unit == "degrees":
+                theta = (theta * 180) / pi
+            return theta
+
+        else:
+            raise TypeError(f"Expected Type 'Vector', got type '{type(other)}'.")
 
     def __str__(self):
         return f"Vector: {list(self.coords)}"

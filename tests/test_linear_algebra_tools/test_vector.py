@@ -1,5 +1,7 @@
 import pytest
 
+from math import pi
+
 from mttools.LinearAlgebraTools import Vector
 from mttools.Exceptions import DimensionError
 
@@ -200,3 +202,29 @@ class TestDirection:
         with pytest.raises(ZeroDivisionError) as excinfo:
             u = v.direction
         assert f"Cannot normalize the zero vector." in str(excinfo.value)
+
+
+class TestAngle:
+    def test_vaild(self, v1, v2):
+        assert 0.6487840721271294 == pytest.approx(v1.angle(v2))
+        assert 37.1726 == pytest.approx(v1.angle(v2, unit="degrees"))
+
+    def test_parallel(self, v1):
+        v = Vector([5, 10, 15])
+        assert 0 == pytest.approx(v1.angle(v))
+        assert 0 == pytest.approx(v1.angle(v, unit="degrees"))
+
+    def test_perpendicular(self):
+        v = Vector([1, 0, 0])
+        u = Vector([0, 1, 0])
+        assert 1.570796326 == pytest.approx(v.angle(u))
+        assert 90 == pytest.approx(v.angle(u, unit="degrees"))
+
+    def test_opposite(self):
+        v = Vector([1, 0, 0])
+        u = Vector([-1, 0, 0])
+        assert pi == pytest.approx(v.angle(u))
+        assert 180 == pytest.approx(v.angle(u, unit="degrees"))
+
+    def test_communitive_property(self, v1, v2):
+        assert v1.angle(v2) == v2.angle(v1)
