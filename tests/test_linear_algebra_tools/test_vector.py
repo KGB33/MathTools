@@ -48,4 +48,3 @@ class TestEq:
         v = Vector([3, 2, 1])
         u = Vector([1, 2, 3])
         assert v != u
-
