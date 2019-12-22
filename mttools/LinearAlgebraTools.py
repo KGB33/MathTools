@@ -7,6 +7,26 @@ from mttools.Exceptions import (
 )
 
 
+class Vector:
+    def __init__(self, coords):
+        if isinstance(coords, tuple) or isinstance(coords, list):
+            if not coords:
+                raise ValueError("Coords must not be empty.")
+            self.coords = tuple(coords)
+            self.dimension = len(coords)
+        else:
+            raise TypeError("Coords must be a list or tuple.")
+
+    def __str__(self):
+        return f"Vector: {list(self.coords)}"
+
+    def __repr__(self):
+        return f"Vector({self.coords})"
+
+    def __eq__(self, other):
+        return self.coords == other.coords
+
+
 class Matrix(object):
     """
     Models matrix objects
