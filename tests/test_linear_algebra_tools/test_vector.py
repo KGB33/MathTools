@@ -154,3 +154,9 @@ class TestDirection:
             v2.direction,
         ):
             assert a == pytest.approx(b)
+
+    def test_zero_vector(self):
+        v = Vector([0, 0, 0])
+        with pytest.raises(ZeroDivisionError) as excinfo:
+            u = v.direction
+        assert f"Cannot normalize the zero vector." in str(excinfo.value)

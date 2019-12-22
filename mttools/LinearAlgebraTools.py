@@ -27,6 +27,8 @@ class Vector:
 
     @property
     def direction(self):
+        if self.magnitude == 0:
+            raise ZeroDivisionError(f"Cannot normalize the zero vector.")
         return [a / self.magnitude for a in self.coords]
 
     def __add__(self, other):
