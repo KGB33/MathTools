@@ -228,3 +228,85 @@ class TestAngle:
 
     def test_communitive_property(self, v1, v2):
         assert v1.angle(v2) == v2.angle(v1)
+
+
+class TestIsParallel:
+    def test_is_not_parallel(self):
+        v = Vector([1, 0])
+        w = Vector([0, 1])
+        assert not v.is_parallel(w)
+        assert not w.is_parallel(v)
+
+    def test_is_parallel_1(self):
+        v = Vector([1, 1])
+        w = Vector([3, 3])
+        assert v.is_parallel(w)
+        assert w.is_parallel(v)
+
+    def test_is_parallel_2(self):
+        v = Vector([1, 1])
+        w = Vector([-3, -3])
+        assert v.is_parallel(w)
+        assert w.is_parallel(v)
+
+    def test_example_1(self):
+        v = Vector([-7.579, -7.88])
+        w = Vector([22.737, 23.64])
+        assert v.is_parallel(w)
+        assert w.is_parallel(v)
+
+    def test_example_2(self):
+        v = Vector([-2.029, 9.97, 4.172])
+        w = Vector([-9.231, -6.639, -7.245])
+        assert not v.is_parallel(w)
+        assert not w.is_parallel(v)
+
+    def test_example_3(self):
+        v = Vector([-2.328, -7.284, -1.214])
+        w = Vector([-1.821, 1.072, -2.94])
+        assert not v.is_parallel(w)
+        assert not w.is_parallel(v)
+
+    def test_example_4(self):
+        v = Vector([2.118, 4.827])
+        w = Vector([0, 0])
+        assert v.is_parallel(w)
+        assert w.is_parallel(v)
+
+
+class TestIsOrthogonal:
+    def test_is_orthogonal(self):
+        v = Vector([1, 0])
+        w = Vector([0, 1])
+        assert v.is_orthogonal(w)
+        assert w.is_orthogonal(v)
+
+    def test_is_not_othogonal(self):
+        v = Vector([1, 1])
+        w = Vector([3, 3])
+        assert not v.is_orthogonal(w)
+        assert not w.is_orthogonal(v)
+
+    def test_example_1(self):
+        v = Vector([-7.579, -7.88])
+        w = Vector([22.737, 23.64])
+        assert not v.is_orthogonal(w)
+        assert not w.is_orthogonal(v)
+
+    def test_example_2(self):
+        v = Vector([-2.029, 9.97, 4.172])
+        w = Vector([-9.231, -6.639, -7.245])
+        assert not v.is_orthogonal(w)
+        assert not w.is_orthogonal(v)
+
+    def test_example_3(self):
+        v = Vector([-2.328, -7.284, -1.214])
+        w = Vector([-1.821, 1.072, -2.940])
+        assert v.is_orthogonal(w)
+        assert w.is_orthogonal(v)
+
+    def test_example_4(self):
+        v = Vector([2.118, 4.827])
+        w = Vector([0, 0])
+        assert v.is_orthogonal(w)
+        assert w.is_orthogonal(v)

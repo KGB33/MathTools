@@ -6,7 +6,7 @@ from mttools.Exceptions import (
     UnderDeterminedError,
 )
 
-from math import sqrt, acos, pi
+from math import sqrt, acos, pi, isclose
 
 import numbers
 
@@ -88,6 +88,21 @@ class Vector:
 
         else:
             raise TypeError(f"Expected Type 'Vector', got type '{type(other)}'.")
+
+    def is_parallel(self, other):
+        if self.magnitude == 0 or other.magnitude == 0:
+            return True  # Zero vector is parallel to all other vectors
+
+        theta = self.angle(other)
+        if isclose(theta, pi) or isclose(theta, 0.0, abs_tol=10 ** -10):
+            return True
+
+        return False
+
+    def is_orthogonal(self, other):
+        if isclose(self * other, 0, abs_tol=10 ** -10):
+            return True
+        return False
 
     def __str__(self):
         return f"Vector: {list(self.coords)}"
