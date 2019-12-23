@@ -2,7 +2,7 @@ from math import isinf
 
 from pytest import approx
 
-from mttools.CalculusTools.CalculusTools import limit
+from mttools.CalculusTools import limit
 
 
 class TestLimit:

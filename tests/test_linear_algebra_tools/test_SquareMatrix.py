@@ -1,6 +1,6 @@
 import pytest
 
-from mttools.LinearAlgebraTools.LinearAlgebraTools import SquareMatrix
+from mttools.LinearAlgebraTools.Matrix import SquareMatrix
 from mttools.utils.Exceptions import DimensionError, NoInverseWarning
 
 

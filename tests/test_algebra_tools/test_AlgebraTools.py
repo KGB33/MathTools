@@ -1,6 +1,6 @@
 from pytest import approx
 
-from mttools.AlgebraTools.AlgebraTools import quadratic_formula, sqrt
+from mttools.AlgebraTools import quadratic_formula, sqrt
 
 
 class TestQuadraticFormula:

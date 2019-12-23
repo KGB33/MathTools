@@ -1,6 +1,6 @@
 import pytest
 
-from mttools.LinearAlgebraTools.LinearAlgebraTools import Matrix
+from mttools.LinearAlgebraTools.Matrix import Matrix
 from mttools.utils.Exceptions import DimensionError
 
 
