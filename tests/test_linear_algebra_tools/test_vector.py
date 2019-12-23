@@ -2,7 +2,7 @@ import pytest
 
 from math import pi
 
-from mttools.LinearAlgebraTools import Vector
+from mttools.LinearAlgebraTools.Vector import Vector
 from mttools.Exceptions import DimensionError
 
 
