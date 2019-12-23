@@ -1,4 +1,4 @@
-from mttools.NumberTools import perfect_factors
+from mttools.NumberTheoryTools import perfect_factors
 
 
 class TestPerfectFactors:

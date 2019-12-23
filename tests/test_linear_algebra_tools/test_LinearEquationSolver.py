@@ -1,10 +1,8 @@
 import pytest
 
-from mttools.Exceptions import (
-    DimensionError,
+from mttools.utils.Exceptions import (
     InconsistentWarning,
     InfiniteSolutionsWaring,
-    NoInverseWarning,
     UnderDeterminedError,
 )
 from mttools.LinearAlgebraTools import solve_linear_equations

@@ -1,8 +1,3 @@
-"""
-Algebraic Tools
-"""
-
-
 def quadratic_formula(a, b, c):
     """
     Calculates the roots of a quadratic equation and returns them as a tuple

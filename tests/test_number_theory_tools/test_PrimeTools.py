@@ -1,4 +1,4 @@
-from mttools.PrimeTools import (
+from mttools.NumberTheoryTools.Primes import (
     division_primality_test,
     fermat_primality_test,
     largest_prime_less_than,

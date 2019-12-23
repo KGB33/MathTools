@@ -2,7 +2,9 @@ import io
 from time import sleep
 from unittest.mock import patch  # TODO: Switch to pytest mocking
 
-from mttools.ProfilerTools import *
+import pytest
+
+from mttools.utils.Profilers import Timer
 
 
 class TestTimer:
@@ -27,7 +29,7 @@ class TestTimer:
         result = mock_stdout.getvalue()
         time_elapsed = float(result[-7:-3])
         unit = result[-2:-1]
-        assert 0.5 == time_elapsed
+        assert pytest.approx(0.5, time_elapsed, 0.1)
         assert "s" == unit
 
     @patch("sys.stdout", new_callable=io.StringIO)
