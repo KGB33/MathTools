@@ -310,3 +310,83 @@ class TestIsOrthogonal:
         w = Vector([0, 0])
         assert v.is_orthogonal(w)
         assert w.is_orthogonal(v)
+
+
+class TestParallelComponent:
+    def test_parallel_componet_x(self, v1):
+        b = Vector([1, 0, 0])
+        assert (1, 0, 0) == v1.parallel_component(b).coords
+
+    def test_parallel_componet_y(self, v1):
+        b = Vector([0, 1, 0])
+        assert (0, 2, 0) == v1.parallel_component(b).coords
+
+    def test_parallel_componet_z(self, v1):
+        b = Vector([0, 0, 1])
+        assert (0, 0, 3) == v1.parallel_component(b).coords
+
+    def test_example(self):
+        v = Vector([3.039, 1.879])
+        b = Vector([0.825, 2.036])
+        assert (1.0826069624844668, 2.671742758325302) == v.parallel_component(b).coords
+
+
+class TestOthogonalComponent:
+    def test_orthogonal_componet_x(self, v1):
+        b = Vector([1, 0, 0])
+        assert (0, 2, 3) == v1.orthogonal_component(b).coords
+
+    def test_orthogonal_componet_y(self, v1):
+        b = Vector([0, 1, 0])
+        assert (1, 0, 3) == v1.orthogonal_component(b).coords
+
+    def test_orthogonal_componet_z(self, v1):
+        b = Vector([0, 0, 1])
+        assert (1, 2, 0) == v1.orthogonal_component(b).coords
+
+    def test_example(self):
+        v = Vector([-9.88, -3.264, -8.159])
+        b = Vector([-2.155, -9.353, -9.473])
+        assert (
+            -8.350081043195763,
+            3.376061254287722,
+            -1.4337460427811841,
+        ) == v.orthogonal_component(b).coords
+
+
+class TestComponents:
+    def test_componets_x(self, v1):
+        b = Vector([1, 0, 0])
+        cs = v1.components(b)
+        assert (0, 2, 3) == cs["othogonal"].coords
+        assert (1, 0, 0) == cs["parallel"].coords
+
+    def test_componets_y(self, v1):
+        b = Vector([0, 1, 0])
+        cs = v1.components(b)
+        assert (1, 0, 3) == cs["othogonal"].coords
+        assert (0, 2, 0) == cs["parallel"].coords
+
+    def test_componets_z(self, v1):
+        b = Vector([0, 0, 1])
+        cs = v1.components(b)
+        assert (1, 2, 0) == cs["othogonal"].coords
+        assert (0, 0, 3) == cs["parallel"].coords
+
+    def test_example(self):
+        v = Vector([3.009, -6.172, 3.692, -2.51])
+        b = Vector([6.404, -9.144, 2.759, 8.718])
+        cs = v.components(b)
+        assert (
+            1.04048383278591,
+            -3.3612392515606433,
+            2.8439150366421497,
+            -5.189813233256158,
+        ) == cs["othogonal"].coords
+        assert (
+            1.9685161672140898,
+            -2.8107607484393564,
+            0.8480849633578503,
+            2.679813233256158,
+        ) == cs["parallel"].coords
+

@@ -31,6 +31,9 @@ class Vector:
             raise ZeroDivisionError(f"Cannot normalize the zero vector.")
         return [a / self.magnitude for a in self.coords]
 
+    def normalize(self):
+        return Vector(self.direction)
+
     def __add__(self, other):
         if isinstance(other, Vector):
             if self.dimension != other.dimension:
@@ -72,6 +75,9 @@ class Vector:
                 f"Expected Type 'Vector' or 'numbers.real', got type '{type(other)}'."
             )
 
+    def __rmul__(self, other):
+        return self * other
+
     def angle(self, other, unit="radians"):
         if isinstance(other, Vector):
             if self.dimension != other.dimension:
@@ -103,6 +109,28 @@ class Vector:
         if isclose(self * other, 0, abs_tol=10 ** -10):
             return True
         return False
+
+    def parallel_component(self, basis):
+        """
+        Returns the component of the vector parallel to the basis
+        """
+        b_norm = basis.normalize()
+        return (self * b_norm) * b_norm
+
+    def orthogonal_component(self, basis):
+        """
+        Returns the component orthogonal to the basis
+        """
+        return self - self.parallel_component(basis)
+
+    def components(self, basis):
+        """
+        returns the components for the given basis
+        """
+        return {
+            "parallel": self.parallel_component(basis),
+            "othogonal": self.orthogonal_component(basis),
+        }
 
     def __str__(self):
         return f"Vector: {list(self.coords)}"
