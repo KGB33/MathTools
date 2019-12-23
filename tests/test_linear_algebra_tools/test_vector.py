@@ -390,3 +390,57 @@ class TestComponents:
             2.679813233256158,
         ) == cs["parallel"].coords
 
+
+class TestCrossProduct:
+    def test_zero_vector(self, v1, v0):
+        result = v1.cross_product(v0)
+        assert (0, 0, 0) == result.coords
+
+    def test_vaild_vectors(self):
+        v = Vector([1, 7, 74])
+        u = Vector([-26, -4, 5])
+        result = v.cross_product(u)
+        assert (331, -1929, 178) == result.coords
+
+    def test_example_1(self):
+        v = Vector([8.462, 7.893, -8.187])
+        u = Vector([6.984, -5.975, 4.778])
+        result = v.cross_product(u)
+        assert (-11.204570999999994, -97.609444, -105.68516199999999) == result.coords
+
+    def test_example_2(self):
+        v = Vector([-8.987, -9.838, 5.031])
+        u = Vector([-4.268, -1.861, -8.866])
+        result = v.cross_product(u)
+        assert (96.58639899999999, -101.15105, -25.263776999999997) == result.coords
+
+    def test_example_3(self):
+        v = Vector([1.5, 9.547, 3.691])
+        u = Vector([-6.007, 0.124, 5.772])
+        result = v.cross_product(u)
+        assert (54.647600000000004, -30.829836999999998, 57.534829) == result.coords
+
+
+class TestArea:
+    def test_zero_vector(self, v1, v0):
+        assert 0 == v1.area(v0)
+
+    def test_valid_vectors(self):
+        v = Vector([1, 7, 74])
+        u = Vector([-26, -4, 5])
+        assert 1965.2699560111328 == v.area(u)
+
+    def test_example_1(self):
+        v = Vector([8.462, 7.893, -8.187])
+        u = Vector([6.984, -5.975, 4.778])
+        assert 144.30003269663322 == v.area(u)
+
+    def test_example_2(self):
+        v = Vector([-8.987, -9.838, 5.031])
+        u = Vector([-4.268, -1.861, -8.866])
+        assert 142.12222140184633 == v.area(u)
+
+    def test_example_3(self):
+        v = Vector([1.5, 9.547, 3.691])
+        u = Vector([-6.007, 0.124, 5.772])
+        assert 42.56493739941894 == v.area(u) / 2
