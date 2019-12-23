@@ -135,12 +135,12 @@ class Vector:
     def cross_product(self, other):
         if self.dimension != 3:
             raise DimensionError(
-                    f"Cannot compute cross product with vector who's dimention is not 3 ({self.dimension=})."
-                )
-        if other.dimension!= 3:
+                f"Cannot compute cross product with vector who's dimention is not 3 ({self.dimension=})."
+            )
+        if other.dimension != 3:
             raise DimensionError(
-                    f"Cannot compute cross product with vector who's dimention is not 3 ({other.dimension=})."
-                )
+                f"Cannot compute cross product with vector who's dimention is not 3 ({other.dimension=})."
+            )
         ijk = [
             (self.coords[1] * other.coords[2] - self.coords[2] * other.coords[1]),
             -1 * (self.coords[0] * other.coords[2] - self.coords[2] * other.coords[0]),
