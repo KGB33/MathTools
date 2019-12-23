@@ -11,6 +11,11 @@ MathTools is a library containing a mountan of various algorithms, formulas, and
 * Distance Formula
 
 ## Linear Algebra Tools
+* Vectors
+  * Addition, Subtraction
+  * Scalar Mulitplication
+  * Dot product, Cross product
+  * Components & Projections
 * Matix
   * Addition
   * Matrix Multiplication
