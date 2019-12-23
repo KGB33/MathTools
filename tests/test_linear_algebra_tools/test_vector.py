@@ -3,7 +3,7 @@ import pytest
 from math import pi
 
 from mttools.LinearAlgebraTools.Vector import Vector
-from mttools.Exceptions import DimensionError
+from mttools.utils.Exceptions import DimensionError
 
 
 @pytest.fixture

@@ -1,4 +1,4 @@
-from mttools.GeometryTools import distance
+from mttools.GeometryTools.GeometryTools import distance
 
 
 class TestDistance:

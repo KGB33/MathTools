@@ -1,4 +1,4 @@
-from mttools.Exceptions import DimensionError
+from mttools.utils.Exceptions import DimensionError
 from math import sqrt, acos, pi, isclose
 
 import numbers

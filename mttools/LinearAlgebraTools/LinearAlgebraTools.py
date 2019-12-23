@@ -1,4 +1,4 @@
-from mttools.Exceptions import (
+from mttools.utils.Exceptions import (
     DimensionError,
     InconsistentWarning,
     InfiniteSolutionsWaring,

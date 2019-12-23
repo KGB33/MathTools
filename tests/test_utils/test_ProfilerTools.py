@@ -2,7 +2,7 @@ import io
 from time import sleep
 from unittest.mock import patch  # TODO: Switch to pytest mocking
 
-from mttools.ProfilerTools import *
+from mttools.utils.ProfilerTools import *
 
 
 class TestTimer:
