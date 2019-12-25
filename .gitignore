@@ -4,3 +4,6 @@ MtTools.egg-info
 .vscode
 __pycache__
 Pipfile.lock
+
+.coverage
+cov.xml
