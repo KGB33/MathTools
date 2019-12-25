@@ -61,6 +61,10 @@ class TestStr:
     def test_str(self, v1):
         assert v1.__str__() == "Vector: [1, 2, 3]"
 
+class TestRepr:
+    def test_repr(self, v1):
+        assert v1.__repr__() == "Vector((1, 2, 3))"
+
 
 class TestEq:
     def test_equal(self):
