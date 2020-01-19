@@ -1,18 +1,8 @@
-<<<<<<< HEAD:mttools/LinearAlgebraTools.py
-from mttools.Exceptions import (
-    DimensionError,
-    InconsistentWarning,
-    InfiniteSolutionsWaring,
-    NoInverseWarning,
-    UnderDeterminedError,
-)
-=======
 from mttools.utils.Exceptions import DimensionError, NoInverseWarning
 
 from math import sqrt, acos, pi, isclose
 
 import numbers
->>>>>>> 297b4d580abd0579d79eec89d3751a18f74d2b54:mttools/LinearAlgebraTools/Matrix.py
 
 
 class Matrix(object):

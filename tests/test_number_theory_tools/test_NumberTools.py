@@ -1,4 +1,4 @@
-from mttools.NumberTools import perfect_factors, gcd, lcf
+from mttools.NumberTheoryTools import perfect_factors, gcd, lcf
 
 def pytest_generate_tests(metafunc):
     # called once per each test function
