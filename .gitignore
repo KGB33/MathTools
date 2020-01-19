@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 .idea
 .pytest_cache
 MtTools.egg-info
 .venv
 settings.json
 __pycache__
+=======
+.venv
+.idea
+MtTools.egg-info
+.vscode
+__pycache__
+Pipfile.lock
+>>>>>>> 297b4d580abd0579d79eec89d3751a18f74d2b54

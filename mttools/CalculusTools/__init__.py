@@ -2,6 +2,7 @@ from mttools.Constants import EPSILON
 from mttools.Core import check_inf
 
 
+
 def derivative(f):
     """
     Takes a lambda function and returns the derivative as a lambda function

@@ -1,4 +1,4 @@
-from mttools.AlgebraTools import sqrt
+from math import sqrt
 
 
 def perfect_factors(n):

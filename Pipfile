@@ -4,12 +4,21 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+<<<<<<< HEAD
 pytest = "*"
 black = "*"
 pytest-cov = "*"
 mttools = {path = "."}
 
 [packages]
+=======
+black = "*"
+pytest = "*"
+rope = "*"
+
+[packages]
+mttools = {editable = true,path = "."}
+>>>>>>> 297b4d580abd0579d79eec89d3751a18f74d2b54
 
 [requires]
 python_version = "3.8"

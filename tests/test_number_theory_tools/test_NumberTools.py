@@ -1,4 +1,8 @@
+<<<<<<< HEAD:mttools/tests/test_NumberTools.py
 from mttools.NumberTools import perfect_factors, gcd, lcf
+=======
+from mttools.NumberTheoryTools import perfect_factors
+>>>>>>> 297b4d580abd0579d79eec89d3751a18f74d2b54:tests/test_number_theory_tools/test_NumberTools.py
 
 def pytest_generate_tests(metafunc):
     # called once per each test function
