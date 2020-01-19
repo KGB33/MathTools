@@ -28,3 +28,17 @@ def perfect_factors(n):
         if n % i == 0:
             yield i
             yield n / i
+
+
+def gcd(a, b):
+    if b == 0:
+        return a
+    elif a == 0:
+        return b
+    elif a == b:
+        return a
+    else:
+        gcd(b, a % b)
+
+def lcf(a, b):
+    pass
