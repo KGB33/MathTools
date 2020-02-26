@@ -2,6 +2,7 @@ from math import sqrt
 
 from typing import List
 
+
 def perfect_factors(n: int) -> List[int]:
     """
     Generates perfect factors of number starting with 1
