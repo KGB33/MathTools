@@ -40,5 +40,6 @@ def gcd(a, b):
     else:
         gcd(b, a % b)
 
+
 def lcf(a, b):
     pass

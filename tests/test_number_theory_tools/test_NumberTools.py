@@ -1,5 +1,6 @@
 from mttools.NumberTheoryTools import perfect_factors, gcd, lcf
 
+
 def pytest_generate_tests(metafunc):
     # called once per each test function
     funcarglist = metafunc.cls.params[metafunc.function.__name__]
@@ -8,11 +9,13 @@ def pytest_generate_tests(metafunc):
         argnames, [[funcargs[name] for name in argnames] for funcargs in funcarglist]
     )
 
+
 class TestPerfectFactors:
     params = {
-        'test_valid_input': {'n': 32, 'e': [1, 2, 4, 8, 16, 32]},
-        'test_perfect_square': {'n': 36, 'e': [1, 2, 3, 4, 6, 9, 12, 18, 36]}
+        "test_valid_input": {"n": 32, "e": [1, 2, 4, 8, 16, 32]},
+        "test_perfect_square": {"n": 36, "e": [1, 2, 3, 4, 6, 9, 12, 18, 36]},
     }
+
     def test_valid_input(self, n, e):
         for factor in perfect_factors(n):
             assert factor in e
@@ -37,7 +40,7 @@ class TestGCD:
             {"a": -1, "b": -123456, "e": 1},
             {"a": 7, "b": 3, "e": 1},
             {"a": 3, "b": 7, "e": 1},
-            {"a":150 , "b":100 , "e":50 }
+            {"a": 150, "b": 100, "e": 50},
         ]
     }
 
