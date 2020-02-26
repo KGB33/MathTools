@@ -31,15 +31,23 @@ def perfect_factors(n):
 
 
 def gcd(a, b):
+    a, b = abs(a), abs(b)
+    # Simple cases
     if b == 0:
         return a
     elif a == 0:
         return b
-    elif a == b:
-        return a
+
+    sort = sorted([a, b])
+    if sort[1] % sort[0] == 0:
+        return sort[0]
     else:
-        gcd(b, a % b)
+        return gcd(b, a % b)
 
 
 def lcf(a, b):
+    pass
+
+
+def lcm(a, b):
     pass
