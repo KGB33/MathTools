@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="MtTools",
-    version="0.1.2",
+    version="0.1.0",
     author="Kelton Bassingthwaite",
     author_email="MtTools@bassingthwaite.org",
     packages=find_packages(exclude=["docs", "tests*"]),
@@ -15,7 +15,6 @@ setup(
     long_description=long_disc,
     long_description_content_type="text/markdown",
     python_requires=">=3",
-    install_requires=["numpy"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
