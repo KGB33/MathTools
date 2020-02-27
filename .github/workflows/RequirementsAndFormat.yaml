@@ -1,0 +1,39 @@
+name: Update requirements.txt And Format With Black
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+    - name: Install Poetry and Black
+      run: |
+        python -m pip install --upgrade pip
+        pip install poetry
+        pip install black
+    - name: Generate Requirements.txt
+      run: |
+        poetry export -f requirements.txt > requirements.txt
+    - name: Format With Black
+      run: |
+        black .
+        
+    - name: Commit files
+      run: |
+        echo ${{ github.ref }}
+        git add .
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "ci: Automated build updated Requirements and Formatted with Black" -a | exit 0
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
