@@ -1,6 +1,6 @@
 import random
 
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, cast
 from mttools.Constants import Prime
 
 
@@ -111,9 +111,7 @@ def sieve_of_eratosthenes(upper_bound: int) -> List[Prime]:
         except UnboundLocalError:
             pass
 
-    # Remove non-primes and turn into set
-    result = [i for i, is_prime in enumerate(sieve) if is_prime]
-    return sorted(result)
+    return sorted([i for i, is_prime in enumerate(sieve) if is_prime])
 
 
 def prime_factors(num: int) -> Dict[Prime, int]:
@@ -133,11 +131,11 @@ def prime_factors(num: int) -> Dict[Prime, int]:
         >>> prime_factors(36)
         {2: 2, 3: 2,}
     """
-    n = 2
-    result = {}
+    n: Prime = 2
+    result: Dict[Prime, int] = {}
     while n <= num:
         if num % n == 0:
-            num = num / n
+            num = num // n
             if n in result:
                 result[n] += 1
             else:

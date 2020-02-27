@@ -1,7 +1,7 @@
 from typing import TypeVar, Union
 
 # Custom Types Variables
-Prime = TypeVar("Prime", bound=int)
+Prime = int
 RealNumber = Union[int, float]
 Number = Union[RealNumber, complex]
 

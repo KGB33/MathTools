@@ -26,7 +26,7 @@ def perfect_factors(n: int) -> List[int]:
     for i in range(2, largest):
         if n % i == 0:
             factors.append(i)
-            factors.append(n / i)
+            factors.append(n // i)
 
     return sorted(factors)
 
