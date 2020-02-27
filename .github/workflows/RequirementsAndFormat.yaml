@@ -32,8 +32,11 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "ci: Automated build updated Requirements and Formatted with Black" -a | exit 0
+    - name: Get Branch Name
+      run: |
+        branch=${GITHUB_REF#refs/heads/} 
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref#refs/heads/ }}
+        branch: ${branch}
