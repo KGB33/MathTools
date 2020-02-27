@@ -1,36 +1,40 @@
 from math import sqrt
 
+from typing import List
 
-def perfect_factors(n):
+
+def perfect_factors(n: int) -> List[int]:
     """
     Generates perfect factors of number starting with 1
 
-    :param n: (int)
-        number to find the factors of
-    :yields: (int)
-        next factor
+    n: number to find the factors of
+
+    return: a sorted List of the Perfect Factors
     """
-    # "1" is always a divisor
-    yield 1
-    # likewise n is always a divisor
-    yield n
+    # 1 and n are always divisors
+    factors = [1, n]
 
     largest = int(sqrt(n))
 
-    # special-case square numbers to avoid yielding the same divisor twice
+    # special-case square numbers to avoid adding the same divisor twice
     if largest * largest == n:
-        yield largest
+        factors.append(largest)
     else:
         largest += 1
 
     # all other divisors
     for i in range(2, largest):
         if n % i == 0:
-            yield i
-            yield n / i
+            factors.append(i)
+            factors.append(n // i)
+
+    return sorted(factors)
 
 
-def gcd(a, b):
+def gcd(a: int, b: int) -> int:
+    """
+    Finds the Greatest Common Divisor of two integers.
+    """
     a, b = abs(a), abs(b)
     # Simple cases
     if b == 0:
@@ -45,9 +49,15 @@ def gcd(a, b):
         return gcd(b, a % b)
 
 
-def lcf(a, b):
+def lcf(a: int, b: int) -> int:
+    """
+    Finds the Least Common Factor of two integers.
+    """
     pass
 
 
-def lcm(a, b):
+def lcm(a: int, b: int) -> int:
+    """
+    Finds the Least Common Multiple of two integers.
+    """
     pass
