@@ -1,4 +1,4 @@
-name: Update requirements.txt And Format With Black
+name: Format, Test, and Type Check
 
 on: [push]
 
