@@ -3,7 +3,7 @@ name: Update requirements.txt And Format With Black
 on: [push]
 
 jobs:
-  Format-And-Generate-Requirements.txt:
+  Format-And-Generate-Requirements:
 
     runs-on: ubuntu-latest
 
