@@ -1,9 +1,22 @@
-from __future__ import annotations # Allows Vector type hints before the class is defined
+from __future__ import (
+    annotations,
+)  # Allows Vector type hints before the class is defined
 
 from mttools.utils.Exceptions import DimensionError
 from mttools.Constants import Number
 from cmath import sqrt, pi, isclose, acos
-from typing import Iterable, Any, Literal, Union, Type, TypedDict, Tuple, List, cast, overload
+from typing import (
+    Iterable,
+    Any,
+    Literal,
+    Union,
+    Type,
+    TypedDict,
+    Tuple,
+    List,
+    cast,
+    overload,
+)
 
 import numbers
 
@@ -36,7 +49,11 @@ class Vector:
     def normalize(self) -> Vector:
         return Vector(self.direction)
 
-    def _has_same_dim(self, other: Any, operation: Literal['add', 'subtract', 'multiply', 'compute angle']) -> bool:
+    def _has_same_dim(
+        self,
+        other: Any,
+        operation: Literal["add", "subtract", "multiply", "compute angle"],
+    ) -> bool:
         if isinstance(other, Vector):
             if self.dimension != other.dimension:
                 raise DimensionError(
@@ -47,19 +64,20 @@ class Vector:
         return True
 
     def __add__(self, other: Vector) -> Vector:
-            self._has_same_dim(other, 'add')
-            return Vector([a + b for a, b in zip(self.coords, other.coords)])
-        
+        self._has_same_dim(other, "add")
+        return Vector([a + b for a, b in zip(self.coords, other.coords)])
 
     def __sub__(self, other: Vector) -> Vector:
-        self._has_same_dim(other, 'subtract')
+        self._has_same_dim(other, "subtract")
         return Vector([a - b for a, b in zip(self.coords, other.coords)])
 
     @overload
-    def __mul__(self, other: Vector) -> Number: ...
+    def __mul__(self, other: Vector) -> Number:
+        ...
 
     @overload
-    def __mul__(self, other: Number) -> Vector: ... 
+    def __mul__(self, other: Number) -> Vector:
+        ...
 
     def __mul__(self, other: Union[Vector, Number]) -> Union[Number, Vector]:
         # Dot Product
@@ -67,7 +85,7 @@ class Vector:
             self._has_same_dim(other, "multiply")
             other = cast(Vector, other)
             return self._dot_product(other)
-        
+
         except TypeError:
             # Scalar Mul
             if isinstance(other, numbers.Number):
@@ -78,17 +96,18 @@ class Vector:
                     f"Expected Type 'Vector' or 'numbers.real', got type '{type(other)}'."
                 )
 
-
     def __rmul__(self, other: Number) -> Vector:
         return self * other
 
     def _dot_product(self, other: Vector) -> Number:
-         return sum([a * b for a, b in zip(self.coords, other.coords)])
+        return sum([a * b for a, b in zip(self.coords, other.coords)])
 
     def _scalar_mul(self, other: Number) -> Vector:
         return Vector([other * a for a in self.coords])
 
-    def angle(self, other: Vector, unit: Literal["radians", "degrees"]="radians") -> Number:
+    def angle(
+        self, other: Vector, unit: Literal["radians", "degrees"] = "radians"
+    ) -> Number:
         self._has_same_dim(other, "compute angle")
 
         # theta = arccos(a · b /|a| × |b|)
