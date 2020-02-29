@@ -1,94 +1,103 @@
+from __future__ import annotations # Allows Vector type hints before the class is defined
+
 from mttools.utils.Exceptions import DimensionError
-from math import sqrt, acos, pi, isclose
+from mttools.Constants import Number
+from cmath import sqrt, pi, isclose, acos
+from typing import Iterable, Any, Literal, Union, Type, TypedDict, Tuple, List, cast, overload
 
 import numbers
 
+# Types
+class Components(TypedDict):
+    parallel: Vector
+    othogonal: Vector
+
 
 class Vector:
-    def __init__(self, coords):
+    def __init__(self, coords: Union[Tuple[Number], List[Number]]):
         if isinstance(coords, tuple) or isinstance(coords, list):
             if not coords:
                 raise ValueError("Coords must not be empty.")
             self.coords = tuple(coords)
-            self.dimension = len(coords)
+            self.dimension: int = len(coords)
         else:
             raise TypeError("Coords must be a list or tuple.")
 
     @property
-    def magnitude(self):
+    def magnitude(self) -> Number:
         return sqrt(sum([a * a for a in self.coords]))
 
     @property
-    def direction(self):
+    def direction(self) -> List[Number]:
         if self.magnitude == 0:
             raise ZeroDivisionError(f"Cannot normalize the zero vector.")
         return [a / self.magnitude for a in self.coords]
 
-    def normalize(self):
+    def normalize(self) -> Vector:
         return Vector(self.direction)
 
-    def __add__(self, other):
+    def _has_same_dim(self, other: Any, operation: Literal['add', 'subtract', 'multiply', 'compute angle']) -> bool:
         if isinstance(other, Vector):
             if self.dimension != other.dimension:
                 raise DimensionError(
-                    f"Cannot add Vector with {self.dimension=} to Vector with {other.dimension=}."
+                    f"Cannot {operation} Vector with {self.dimension=} to Vector with {other.dimension=}."
                 )
-            new_coords = [a + b for a, b in zip(self.coords, other.coords)]
-            return Vector(new_coords)
         else:
             raise TypeError(f"Expected Type 'Vector', got type '{type(other)}'.")
+        return True
 
-    def __sub__(self, other):
-        if isinstance(other, Vector):
-            if self.dimension != other.dimension:
-                raise DimensionError(
-                    f"Cannot add Vector with {self.dimension=} to Vector with {other.dimension=}."
-                )
-            new_coords = [a - b for a, b in zip(self.coords, other.coords)]
-            return Vector(new_coords)
-        else:
-            raise TypeError(f"Expected Type 'Vector', got type '{type(other)}'.")
+    def __add__(self, other: Vector) -> Vector:
+            self._has_same_dim(other, 'add')
+            return Vector([a + b for a, b in zip(self.coords, other.coords)])
+        
 
-    def __mul__(self, other):
+    def __sub__(self, other: Vector) -> Vector:
+        self._has_same_dim(other, 'subtract')
+        return Vector([a - b for a, b in zip(self.coords, other.coords)])
+
+    @overload
+    def __mul__(self, other: Vector) -> Number: ...
+
+    @overload
+    def __mul__(self, other: Number) -> Vector: ... 
+
+    def __mul__(self, other: Union[Vector, Number]) -> Union[Number, Vector]:
         # Dot Product
-        if isinstance(other, Vector):
-            if self.dimension != other.dimension:
-                raise DimensionError(
-                    f"Cannot compute dot product between Vector with {self.dimension=} and Vector with {other.dimension=}."
+        try:
+            self._has_same_dim(other, "multiply")
+            other = cast(Vector, other)
+            return self._dot_product(other)
+        
+        except TypeError:
+            # Scalar Mul
+            if isinstance(other, numbers.Number):
+                other = cast(Number, other)
+                return self._scalar_mul(other)
+            else:
+                raise TypeError(
+                    f"Expected Type 'Vector' or 'numbers.real', got type '{type(other)}'."
                 )
-            return sum([a * b for a, b in zip(self.coords, other.coords)])
 
-        # Scalar Mul
-        elif isinstance(other, numbers.Real):
-            new_coords = [other * a for a in self.coords]
-            return Vector(new_coords)
 
-        else:
-            raise TypeError(
-                f"Expected Type 'Vector' or 'numbers.real', got type '{type(other)}'."
-            )
-
-    def __rmul__(self, other):
+    def __rmul__(self, other: Number) -> Vector:
         return self * other
 
-    def angle(self, other, unit="radians"):
-        if isinstance(other, Vector):
-            if self.dimension != other.dimension:
-                raise DimensionError(
-                    f"Cannot compute angle between Vector with {self.dimension=} and Vector with {other.dimension=}."
-                )
+    def _dot_product(self, other: Vector) -> Number:
+         return sum([a * b for a, b in zip(self.coords, other.coords)])
 
-            # Compute
-            # theta = arccos(a · b /|a| × |b|)
-            theta = acos((self * other) / (self.magnitude * other.magnitude))
-            if unit == "degrees":
-                theta = (theta * 180) / pi
-            return theta
+    def _scalar_mul(self, other: Number) -> Vector:
+        return Vector([other * a for a in self.coords])
 
-        else:
-            raise TypeError(f"Expected Type 'Vector', got type '{type(other)}'.")
+    def angle(self, other: Vector, unit: Literal["radians", "degrees"]="radians") -> Number:
+        self._has_same_dim(other, "compute angle")
 
-    def is_parallel(self, other):
+        # theta = arccos(a · b /|a| × |b|)
+        theta = acos((self * other) / (self.magnitude * other.magnitude))
+        if unit == "degrees":
+            theta = (theta * 180) / pi
+        return theta
+
+    def is_parallel(self, other: Vector) -> bool:
         if self.magnitude == 0 or other.magnitude == 0:
             return True  # Zero vector is parallel to all other vectors
 
@@ -98,25 +107,25 @@ class Vector:
 
         return False
 
-    def is_orthogonal(self, other):
+    def is_orthogonal(self, other: Vector) -> bool:
         if isclose(self * other, 0, abs_tol=10 ** -10):
             return True
         return False
 
-    def parallel_component(self, basis):
+    def parallel_component(self, basis: Vector) -> Vector:
         """
         Returns the component of the vector parallel to the basis
         """
         b_norm = basis.normalize()
         return (self * b_norm) * b_norm
 
-    def orthogonal_component(self, basis):
+    def orthogonal_component(self, basis: Vector) -> Vector:
         """
         Returns the component orthogonal to the basis
         """
         return self - self.parallel_component(basis)
 
-    def components(self, basis):
+    def components(self, basis: Vector) -> Components:
         """
         returns the components for the given basis
         """
@@ -125,7 +134,7 @@ class Vector:
             "othogonal": self.orthogonal_component(basis),
         }
 
-    def cross_product(self, other):
+    def cross_product(self, other: Vector) -> Vector:
         if self.dimension != 3:
             raise DimensionError(
                 f"Cannot compute cross product with vector who's dimention is not 3 ({self.dimension=})."
@@ -141,7 +150,7 @@ class Vector:
         ]
         return Vector(ijk)
 
-    def area(self, other):
+    def area(self, other: Vector) -> Number:
         return self.cross_product(other).magnitude
 
     def __str__(self):
@@ -150,5 +159,7 @@ class Vector:
     def __repr__(self):
         return f"Vector({self.coords})"
 
-    def __eq__(self, other):
-        return self.coords == other.coords
+    def __eq__(self, other) -> bool:
+        if isinstance(other, Vector):
+            return self.coords == other.coords
+        return NotImplemented
