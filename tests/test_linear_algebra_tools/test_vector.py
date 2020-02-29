@@ -122,7 +122,7 @@ class TestSub:
         with pytest.raises(DimensionError) as excinfo:
             new_v = v1 - u
         assert (
-            f"Cannot add Vector with self.dimension=3 to Vector with other.dimension=4."
+            f"Cannot subtract Vector with self.dimension=3 to Vector with other.dimension=4."
             == str(excinfo.value)
         )
 
@@ -173,7 +173,7 @@ class TestVectorMul:
         with pytest.raises(DimensionError) as excinfo:
             v * v1
         assert (
-            f"Cannot compute dot product between Vector with self.dimension=5 and Vector with other.dimension=3."
+            f"Cannot multiply Vector with self.dimension=5 to Vector with other.dimension=3."
             == str(excinfo.value)
         )
 
