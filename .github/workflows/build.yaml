@@ -29,6 +29,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "ci: Automated build updated Requirements and Formatted with Black" -a | exit 0
+        git pull
         
     - name: Push changes
       uses: ad-m/github-push-action@master
@@ -58,6 +59,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "ci: Automated build updated Requirements and Formatted with Black" -a | exit 0
+        git pull
         
     - name: Push changes
       uses: ad-m/github-push-action@master
