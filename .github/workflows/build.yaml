@@ -7,7 +7,7 @@ on:
 
 jobs:
   Format:
-    if: github.event.push
+    if: github.event_name == "push"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.0.0
@@ -38,7 +38,7 @@ jobs:
         branch: ${{ github.ref }}
 
   Generate-Requirements:
-    if: github.event.push
+    if: github.event_name == "push"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.0.0
