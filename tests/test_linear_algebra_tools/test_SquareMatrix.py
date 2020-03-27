@@ -15,8 +15,8 @@ class TestInit:
         with pytest.raises(DimensionError):
             m = SquareMatrix([[1, 2, 3], [1, 2]])
 
-class TestAdd:
 
+class TestAdd:
     def test_add(self):
         m = SquareMatrix([[1, 2], [3, 4]])  # 2x2
         n = SquareMatrix([[1, 2], [3, 4]])  # 2x2
@@ -28,8 +28,8 @@ class TestAdd:
         n = SquareMatrix([[1, 2], [3, 4]])  # 2x2
         assert isinstance(m + n, SquareMatrix)
 
-class TestMul:
 
+class TestMul:
     def test_mul(self):
         m = SquareMatrix([[1, 2], [3, 4]])
         n = SquareMatrix([[1, 2], [3, 4]])
@@ -40,6 +40,7 @@ class TestMul:
         m = SquareMatrix([[1, 2], [3, 4]])  # 2x2
         n = SquareMatrix([[1, 2], [3, 4]])  # 2x2
         assert isinstance(m * n, SquareMatrix)
+
 
 class TestInverse:
     def test_inverse(self):

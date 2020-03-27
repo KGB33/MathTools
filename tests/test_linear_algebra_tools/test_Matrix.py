@@ -79,7 +79,6 @@ class TestAdd:
         assert isinstance(m + n, Matrix)
 
 
-
 class TestRank:
     def test_rank(self):
         m = Matrix([[1, 2], [3, 4], [2, 5]])

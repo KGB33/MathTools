@@ -70,7 +70,6 @@ class Matrix(object):
             return self.__class__(new_array)
         raise DimensionError
 
-            
     def __add__(self, other):
         """
         Implements the addition operator between two matrices
@@ -82,14 +81,12 @@ class Matrix(object):
             Sum of self + other
         """
         if self.num_rows == other.num_rows and self.num_columns == other.num_columns:
-                new_array = self.zero_array()
-                for r, (s_row, o_row) in enumerate(zip(self.array, other.array)):
-                    for c, (s_val, o_val) in enumerate(zip(s_row, o_row)):
-                        new_array[r][c] = s_val + o_val
-                return self.__class__(new_array)
+            new_array = self.zero_array()
+            for r, (s_row, o_row) in enumerate(zip(self.array, other.array)):
+                for c, (s_val, o_val) in enumerate(zip(s_row, o_row)):
+                    new_array[r][c] = s_val + o_val
+            return self.__class__(new_array)
         raise DimensionError
-        
-        
 
     def zero_array(self, num_rows=None, num_columns=None):
         """
@@ -247,7 +244,6 @@ class SquareMatrix(Matrix):
                 print("Array is not square, Use Matrix Instead")
                 raise DimensionError
         super().__init__(array)
-
 
     def identity_matrix(self, size=None):
         """
