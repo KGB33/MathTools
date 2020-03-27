@@ -1,37 +1,69 @@
-name: Format, Test, and Type Check
+name: build
 
 
 on:
   push:
+    branches:
+      - master
   pull_request:
 
 
 
 jobs:
-  Format-And-Generate-Requirements:
-    if: github.event.push
-
-    runs-on: ubuntu-latest
-
+  Init-env:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout
     - name: Set up Python 3.8
-      uses: actions/setup-python@v1
+      uses: actions/setup-python
       with:
         python-version: 3.8
-    - name: Install Poetry and Black
-      run: |
-        python -m pip install --upgrade pip
-        pip install poetry
-        pip install black
-    - name: Generate Requirements.txt
-      run: |
-        poetry export -f requirements.txt > requirements.txt
+
+    - name: Install Poetry
+      uses: dschep/install-poetry-action
+      
+    - name: Turn off Virtualenvs
+      run: poetry config virtualenvs.create false
+      
+    - name: Cache Dependancies
+      uses: actions/cache
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: ${{ runner.os }}-poetry-
+  
+    - name: Install Dependancies
+      run: poetry install -D
+      
+
+  Format:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Black
+      run: pip install Black
+
     - name: Format With Black
       run: |
         black .
-        
+
+  Generate-Requirements:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Poetry
+      uses: dschep/install-poetry-action
+    - name: Generate Requirements.txt
+      run: |
+        poetry export -f requirements.txt > requirements.txt
+          
+          
+  Push Changes:
+    runs-on: ubuntu-latest
+    steps:
     - name: Commit files
+      if: github.event.push
       run: |
         echo ${{ github.ref }}
         git add .
@@ -52,6 +84,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.6", "3.7", "3.8"]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
       - uses: "actions/checkout@v2"
