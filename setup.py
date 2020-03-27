@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_disc = fh.read()
 
 setup(
-    name="MtTools",
+    name="mttools",
     version="0.1.0",
     author="Kelton Bassingthwaite",
     author_email="MtTools@bassingthwaite.org",
