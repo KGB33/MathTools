@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Black
-      run: pip install Black
+      run: pip install black
 
     - name: Format With Black
       run: |
@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Poetry
-      uses: dschep/install-poetry-action@v1.3
+      run: pip install poetry
     - name: Generate Requirements.txt
       run: |
         poetry export -f requirements.txt > requirements.txt
@@ -73,7 +73,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Install Poetry
-      uses: dschep/install-poetry-action@v1.3
+      run: pip install poetry
       
     - name: Turn off Virtualenvs
       run: poetry config virtualenvs.create false
@@ -86,7 +86,7 @@ jobs:
         restore-keys: ${{ runner.os }}-poetry-
   
     - name: Install Dependancies
-      run: poetry install -D
+      run: poetry install
 
     - name: "Run tox targets for ${{ matrix.python-version }}"
       run: "python -m tox"
