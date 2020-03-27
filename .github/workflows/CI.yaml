@@ -9,6 +9,7 @@ on:
 
 jobs:
   Format-And-Generate-Requirements:
+    if: github.event.push
 
     runs-on: ubuntu-latest
 
