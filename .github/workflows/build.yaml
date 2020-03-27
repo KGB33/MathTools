@@ -11,6 +11,10 @@ jobs:
   Format:
     runs-on: ubuntu-latest
     steps:
+    - name: Set up Python for black
+      uses: actions/setup-python@v1.2.0
+      with:
+        python-version: 3.8
     - name: Install Black
       run: pip install black
 
@@ -36,6 +40,10 @@ jobs:
   Generate-Requirements:
     runs-on: ubuntu-latest
     steps:
+    - name: Set up Python for black
+      uses: actions/setup-python@v1.2.0
+      with:
+        python-version: 3.8
     - name: Install Poetry
       run: pip install poetry
     - name: Generate Requirements.txt
