@@ -16,20 +16,20 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-    - uses: actions/checkout
+    - uses: actions/checkout@v2
     - name: Set up Python 3.8
-      uses: actions/setup-python
+      uses: actions/setup-python@v1.2.0
       with:
         python-version: 3.8
 
     - name: Install Poetry
-      uses: dschep/install-poetry-action
+      uses: dschep/install-poetry-action@v1.3
       
     - name: Turn off Virtualenvs
       run: poetry config virtualenvs.create false
       
     - name: Cache Dependancies
-      uses: actions/cache
+      uses: actions/cache@v1.1.2
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Install Poetry
-      uses: dschep/install-poetry-action
+      uses: dschep/install-poetry-action@v1.3
     - name: Generate Requirements.txt
       run: |
         poetry export -f requirements.txt > requirements.txt
