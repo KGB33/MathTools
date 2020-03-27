@@ -39,14 +39,14 @@ def gcd(a: int, b: int) -> int:
     # Simple cases
     if b == 0:
         return a
-    elif a == 0:
+
+    if a == 0:
         return b
 
     sort = sorted([a, b])
     if sort[1] % sort[0] == 0:
         return sort[0]
-    else:
-        return gcd(b, a % b)
+    return gcd(b, a % b)
 
 
 def lcf(a: int, b: int) -> int:
