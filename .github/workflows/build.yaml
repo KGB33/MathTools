@@ -23,7 +23,6 @@ jobs:
         black .
         
     - name: Commit files
-      if: github.event.push
       run: |
         echo ${{ github.ref }}
         git add .
