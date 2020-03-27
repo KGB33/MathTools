@@ -6,10 +6,6 @@ from mttools.LinearAlgebraTools.Vector import Vector
 from mttools.utils.Exceptions import DimensionError
 
 
-def test_tox():
-    assert False
-
-
 @pytest.fixture
 def v1():
     return Vector([1, 2, 3])
