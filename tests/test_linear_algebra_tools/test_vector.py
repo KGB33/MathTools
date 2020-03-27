@@ -5,6 +5,7 @@ from math import pi
 from mttools.LinearAlgebraTools.Vector import Vector
 from mttools.utils.Exceptions import DimensionError
 
+
 def test_tox():
     assert False
 
