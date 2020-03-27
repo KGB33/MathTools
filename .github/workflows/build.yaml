@@ -59,7 +59,7 @@ jobs:
         poetry export -f requirements.txt > requirements.txt
           
           
-  Push Changes:
+  Push-Changes:
     runs-on: ubuntu-latest
     steps:
     - name: Commit files
