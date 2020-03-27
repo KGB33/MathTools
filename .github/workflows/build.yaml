@@ -71,7 +71,7 @@ jobs:
           
   
   tests:
-    name: "Python Tox ${{ matrix.python-version }}"
+    name: "Tests -- Python ${{ matrix.python-version }} Running On ${{ matrix.os }}"
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
