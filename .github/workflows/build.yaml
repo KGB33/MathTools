@@ -22,6 +22,68 @@ jobs:
       with:
         python-version: 3.8
 
+
+      
+
+  Format:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Black
+      run: pip install Black
+
+    - name: Format With Black
+      run: |
+        black .
+        
+    - name: Commit files
+      if: github.event.push
+      run: |
+        echo ${{ github.ref }}
+        git add .
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "ci: Automated build updated Requirements and Formatted with Black" -a | exit 0
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
+
+  Generate-Requirements:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Poetry
+      uses: dschep/install-poetry-action@v1.3
+    - name: Generate Requirements.txt
+      run: |
+        poetry export -f requirements.txt > requirements.txt
+        
+    - name: Commit files
+      if: github.event.push
+      run: |
+        echo ${{ github.ref }}
+        git add .
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "ci: Automated build updated Requirements and Formatted with Black" -a | exit 0
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
+          
+          
+  
+  tests:
+    name: "Python Tox ${{ matrix.python-version }}"
+    runs-on: 
+      strategy:
+        matrix:
+          python-version: ["3.6", "3.7", "3.8"]
+          os: [ubuntu-latest, windows-latest, macOS-latest]
+    steps:
     - name: Install Poetry
       uses: dschep/install-poetry-action@v1.3
       
@@ -37,69 +99,8 @@ jobs:
   
     - name: Install Dependancies
       run: poetry install -D
-      
 
-  Format:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Install Black
-      run: pip install Black
-
-    - name: Format With Black
-      run: |
-        black .
-
-  Generate-Requirements:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Install Poetry
-      uses: dschep/install-poetry-action@v1.3
-    - name: Generate Requirements.txt
-      run: |
-        poetry export -f requirements.txt > requirements.txt
-          
-          
-  Push-Changes:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Commit files
-      if: github.event.push
-      run: |
-        echo ${{ github.ref }}
-        git add .
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git commit -m "ci: Automated build updated Requirements and Formatted with Black" -a | exit 0
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
-        
-
-  tests:
-    name: "Python Tox ${{ matrix.python-version }}"
-    runs-on: "ubuntu-latest"
-
-    strategy:
-      matrix:
-        python-version: ["3.6", "3.7", "3.8"]
-        os: [ubuntu-latest, windows-latest, macOS-latest]
-
-    steps:
-      - uses: "actions/checkout@v2"
-      - uses: "actions/setup-python@v1"
-        with:
-          python-version: "${{ matrix.python-version }}"
-      - name: "Install dependencies"
-        run: |
-          set -xe
-          python -VV
-          python -m site
-          python -m pip install --upgrade pip setuptools wheel
-          python -m pip install --upgrade virtualenv tox tox-gh-actions
-
-      - name: "Run tox targets for ${{ matrix.python-version }}"
-        run: "python -m tox"
+    - name: "Run tox targets for ${{ matrix.python-version }}"
+      run: "python -m tox"
 
     
