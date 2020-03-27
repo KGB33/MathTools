@@ -1,6 +1,11 @@
 name: Format, Test, and Type Check
 
-on: [push]
+
+on:
+  push:
+  pull_request:
+
+
 
 jobs:
   Format-And-Generate-Requirements:
@@ -38,36 +43,29 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
         
-  test:
-    runs-on: [ubuntu-latest]
+
+  tests:
+    name: "Python Tox ${{ matrix.python-version }}"
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        python-version: ["3.6", "3.7", "3.8"]
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v1
+      - uses: "actions/checkout@v2"
+      - uses: "actions/setup-python@v1"
         with:
-          python-version: 3.8
-      - name: Install MathTools and Pytest
+          python-version: "${{ matrix.python-version }}"
+      - name: "Install dependencies"
         run: |
-          pip install .
-          pip install pytest
-      - name: Run Pytest
-        run: |
-          pytest .
-        
-        
-  mypy:
-    runs-on: [ubuntu-latest]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
-      - name: Install MyPy
-        run: |
-          pip install mypy
-      - name: Run mypy
-        run: |
-          mypy ./mttools
+          set -xe
+          python -VV
+          python -m site
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade virtualenv tox tox-gh-actions
+
+      - name: "Run tox targets for ${{ matrix.python-version }}"
+        run: "python -m tox"
 
     
