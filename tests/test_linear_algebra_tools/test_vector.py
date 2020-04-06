@@ -140,12 +140,6 @@ class TestScalarMul:
 class TestVectorMul:
     # Dot Product
 
-    @pytest.mark.xfail(reason="Not implemented", run=False)
-    def test_not_implemented(self, v1, v2):
-        with pytest.raises(NotImplementedError) as excinfo:
-            v1 * v2
-        assert "NotImplementedError" in str(excinfo)
-
     def test_mul_self(self, v1, v2):
         assert 014.00 == v1 * v1
         assert 101.25 == v2 * v2
