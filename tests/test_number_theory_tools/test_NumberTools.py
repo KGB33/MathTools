@@ -39,7 +39,7 @@ class TestGCD:
 
 
 class TestLCF:
-    @pytest.mark.xfail
+    @pytest.mark.xfail(reason="Not Implemented")
     @pytest.mark.parametrize("a,b,expected", [(10, 5, 5),])
     def test_lcf(self, a, b, expected):
         assert expected == lcf(a, b)
