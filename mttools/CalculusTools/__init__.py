@@ -1,4 +1,5 @@
-import math
+from mttools.Constants import EPSILON
+from mttools.Core import check_inf
 
 
 def derivative(f):
@@ -12,23 +13,19 @@ def derivative(f):
     # TODO Diferentiation
 
 
-def limit(f, a, diff_1=pow(10, -5), diff_2=pow(10, -10)):
+def limit(f, a):
     """
     Takes the limit of some lambda function, f, as f approaches a
-    :param f: lambda function
-    :param a: limit
-    :param diff_1: 1st Difference checked on the RH/LH side for continuity, default is 10^-5
-    :param diff_2: 2nd Difference checked on the RH/LH side for continuity, default is 10^-10
+    :param f: function
+    :param a: value f tends towards
     :return: limit of f
     """
-    f_right = f(a + diff_1)
-    f_left = f(a - diff_1)
-    if abs(f_left - f_right) < pow(10, -3):
-        if f(a + diff_2) / 2 > f_right:
-            if f_right > 0:
-                return math.inf
-            return -math.inf
-        return (f_right + f_left) / 2
+    try:
+        return f(a)  # if the function exists at a it tends to f(a)
+    except ZeroDivisionError:
+        if abs(f(a - EPSILON) - f(a + EPSILON)) <= pow(10, -10):
+            return check_inf(f(a + EPSILON))
+        return None
 
 
 def function_roots(f):

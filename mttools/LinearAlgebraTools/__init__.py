@@ -6,35 +6,34 @@ from mttools.utils.Exceptions import (
 
 from .Matrix import Matrix
 
+from typing import List
+from mttools.Constants import RealNumber
 
-def solve_linear_equations(*args):
+
+def solve_linear_equations(*args: List[RealNumber]) -> List[RealNumber]:
     """
     Solves a system of linear equations
 
-    :param args: (dicts)
-        {variable: coefficient} pairs, one dictionary per equation
-        if a coefficient is zero it NEEDS to be in the dict.
-        the last key: value pair should be the solution (RH) of the equation
+    params:
+        args:
+            An ordered list of the coefficients for an equation, 
+            where the last number is the RH side
 
-    :return: (dict)
-        {variable: value} pairs
+    return:
+        The Solutions to the system of linear equations
+
+    Example:
+
+        If the first equation is:
+            3a + 2b + ... -3n = 12
+        the corresponding arg would be:
+            [3, 2, ..., -3, 12]
     """
     # Check to see if solution is underdetermined (num_eq < num_var)
-    if len(args) < len(args[0]) - 1:  # -1 for sol key
+    if len(args) < len(args[0]) - 1:  # -1 because the RH side is not a variable
         raise UnderDeterminedError
 
-    # Create solution dict
-    solution = {key: None for key in args[0]}
-    del solution["sol"]  # removes unneeded key
-
-    # Convert Dicts to matrix
-    to_array = []
-    for equation in args:
-        to_row = []
-        for variable in equation:
-            to_row.append(equation[variable])
-        to_array.append(to_row)
-    m = Matrix(to_array)
+    m = Matrix(list(args))
 
     # Put Matrix in Reduced-Row Echelon Form
     m.rref()
@@ -49,12 +48,9 @@ def solve_linear_equations(*args):
             raise InconsistentWarning
 
     # Convert matrix to solution dict
+    solution = []
     for row in m.array:
-        variable_key = None
-        for value, key in zip(row, solution):
-            if value == 1:
-                variable_key = key
-        solution.update({variable_key: row[-1]})
+        solution.append(row[-1])
 
     # Return solution
     return solution

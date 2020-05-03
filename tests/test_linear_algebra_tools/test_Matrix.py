@@ -46,6 +46,11 @@ class TestMul:
         expected = Matrix(([[7, 10], [15, 22]]))
         assert expected.array == (m * n).array
 
+    def test_mul_returns_matrix(self):
+        m = Matrix([[1, 2], [3, 4]])  # 2x2
+        n = Matrix([[1, 2], [3, 4]])  # 2x2
+        assert isinstance(m * n, Matrix)
+
 
 class TestScalarMul:
     def test_scalar_mul(self):
@@ -67,6 +72,11 @@ class TestAdd:
         n = Matrix([[1, 2], [3, 4]])  # 2x2
         expected = Matrix([[2, 4], [6, 8]])
         assert expected.array == (m + n).array
+
+    def test_add_returns_matrix(self):
+        m = Matrix([[1, 2], [3, 4]])  # 2x2
+        n = Matrix([[1, 2], [3, 4]])  # 2x2
+        assert isinstance(m + n, Matrix)
 
 
 class TestRank:

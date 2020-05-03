@@ -1,17 +1,45 @@
-from mttools.NumberTheoryTools import perfect_factors
+from mttools.NumberTheoryTools import perfect_factors, gcd, lcf
+
+import pytest
 
 
 class TestPerfectFactors:
-    def test_valid_input(self):
-        expected = [1, 2, 4, 8, 16, 32]
-        for factor in perfect_factors(32):
-            assert factor in expected
-            expected.remove(factor)
-        assert not expected  # Should be empty
+    @pytest.mark.parametrize("n,e", [(32, [1, 2, 4, 8, 16, 32]),])
+    def test_valid_input(self, n, e):
+        for factor in perfect_factors(n):
+            assert factor in e
+            e.remove(factor)
+        assert not e  # Should be empty
 
-    def test_perfect_square(self):
-        expected = [1, 2, 3, 4, 6, 9, 12, 18, 36]
-        for factor in perfect_factors(36):
-            assert factor in expected
-            expected.remove(factor)
-        assert not expected  # Should be empty
+    @pytest.mark.parametrize("n,e", [(36, [1, 2, 3, 4, 6, 9, 12, 18, 36]),])
+    def test_perfect_square(self, n, e):
+        for factor in perfect_factors(n):
+            assert factor in e
+            e.remove(factor)
+        assert not e  # Should be empty
+
+
+class TestGCD:
+    @pytest.mark.parametrize(
+        "a,b,e",
+        [
+            (1, 1, 1),
+            (0, 0, 0),
+            (-1, -1, 1),
+            (0, 123456, 123456),
+            (1, 123456, 1),
+            (-1, -123456, 1),
+            (7, 3, 1),
+            (3, 7, 1),
+            (150, 100, 50),
+        ],
+    )
+    def test_gcd(self, a, b, e):
+        assert e == gcd(a, b)
+
+
+class TestLCF:
+    @pytest.mark.xfail(reason="Not Implemented")
+    @pytest.mark.parametrize("a,b,expected", [(10, 5, 5),])
+    def test_lcf(self, a, b, expected):
+        assert expected == lcf(a, b)

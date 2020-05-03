@@ -1,21 +1,18 @@
 import random
 
+from typing import List, Dict, Optional, cast
+from mttools.Constants import Prime
 
-def fermat_primality_test(p, num_trials):
+
+def fermat_primality_test(p: int, num_trials: int) -> bool:
     """
     Uses Fermat's Little Theorem to test for possible primality.
         If this returns False, p is guaranteed to be composite
         If this returns True, p is probably, but not guaranteed to be prime.
 
-    :param p: (int)
-        Number that is being tested for primality
-
-    :param num_trials: (int)
-        Number of times to run the test
-
-    :return: (boolean)
-        False if composite
-        True if probably Prime
+    Params:
+        p: Number that is being tested for primality.
+        num_trials: Number of times to run the test.
     """
     # Checks to see if p < 2:
     if p < 2:
@@ -68,16 +65,12 @@ def fermat_primality_test(p, num_trials):
     return True
 
 
-def division_primality_test(p):
+def division_primality_test(p: int) -> bool:
     """
     Standard division test for primality
 
-    :param p: (int)
-        Number that is being tested for primality
-
-    :return: (boolean)
-        True if Prime
-        False if Composite
+    params: 
+        p: Number that is being tested for primality
     """
     # negatives, 0, 1 are not prime
     if p < 2:
@@ -91,15 +84,15 @@ def division_primality_test(p):
     return True
 
 
-def sieve_of_eratosthenes(upper_bound):
+def sieve_of_eratosthenes(upper_bound: int) -> List[Prime]:
     """
     Creates a Sieve of Eratosthenes from 0 to upper_bound
 
-    :param upper_bound: (int)
-        Upper-Bound for the sieve
+    params:
+        upper_bound: Upper-Bound for the sieve
 
-    :return: (set)
-        Ordered set of all primes less than upper_bound
+    return:
+        Ordered list of all primes less than upper_bound
     """
 
     # Assume everything is prime, except 0 and 1
@@ -118,49 +111,50 @@ def sieve_of_eratosthenes(upper_bound):
         except UnboundLocalError:
             pass
 
-    # Remove non-primes and turn into set
-    result = []
-    for p, is_prime in enumerate(sieve):
-        if is_prime:
-            result.append(p)
-    return set(result)
+    return sorted([i for i, is_prime in enumerate(sieve) if is_prime])
 
 
-def prime_factors(num):
+def prime_factors(num: int) -> Dict[Prime, int]:
     """
-    Creates a dictionary of prime factors where:
-        {factor: power}
+    Creates a dictionary of prime factors for a given number.
 
-    :param num: (int)
-        Number to be factored
+    params
+        num: Number to be factored
 
-    :return: (dict)
-        Dictionary of prime factors
+    return:
+        Dictionary of where the keys are prime factors and the values are their respective powers.
+
+    Example:
+
+        36 = 2^2 * 3^2
+
+        >>> prime_factors(36)
+        {2: 2, 3: 2,}
     """
-    n = 2
-    dic = {}
+    n: Prime = 2
+    result: Dict[Prime, int] = {}
     while n <= num:
         if num % n == 0:
-            num = num / n
-            if n in dic:
-                dic[n] += 1
+            num = num // n
+            if n in result:
+                result[n] += 1
             else:
-                dic.update({n: 1})
+                result.update({n: 1})
         else:
             n += 1
-    return dic
+    return result
 
 
-def largest_prime_less_than(num):
+def largest_prime_less_than(num: int) -> Optional[int]:
     """
     Returns the largest prime less than Num,
     if there are no primes less than num, returns None
 
-    :param num: (int)
-        Number to search for primes below
+    params
+        num: Number to search for primes below
 
-    :return: (int)
-        largest prime less than num
+    return:
+        Largest prime less than num, if such a prime does not exist, returns None
     """
     for i in range((num - 1), 0, -1):
         if division_primality_test(i):

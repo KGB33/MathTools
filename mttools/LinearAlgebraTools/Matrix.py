@@ -32,10 +32,10 @@ class Matrix(object):
             if len(a) != len(array[0]):
                 print("Array is not rectangular, Cannot be a matrix")
                 raise DimensionError
-        else:
-            self.array = array
-            self.num_rows = len(array)
-            self.num_columns = len(array[0])
+
+        self.array = array
+        self.num_rows = len(array)
+        self.num_columns = len(array[0])
 
     def __str__(self):
         result = ""
@@ -67,9 +67,8 @@ class Matrix(object):
                             for k in range(self.num_columns)
                         ]
                     )
-            return Matrix(new_array)
-        else:
-            raise DimensionError
+            return self.__class__(new_array)
+        raise DimensionError
 
     def __add__(self, other):
         """
@@ -81,16 +80,13 @@ class Matrix(object):
         :return: (Matrix object)
             Sum of self + other
         """
-        # Check that matrices have the same dimensions
         if self.num_rows == other.num_rows and self.num_columns == other.num_columns:
             new_array = self.zero_array()
             for r, (s_row, o_row) in enumerate(zip(self.array, other.array)):
                 for c, (s_val, o_val) in enumerate(zip(s_row, o_row)):
                     new_array[r][c] = s_val + o_val
-            # TODO: Return type called i.e, if they're SquareMatrix return SquareMatrix
-            return Matrix(new_array)
-        else:
-            raise DimensionError
+            return self.__class__(new_array)
+        raise DimensionError
 
     def zero_array(self, num_rows=None, num_columns=None):
         """
@@ -247,8 +243,7 @@ class SquareMatrix(Matrix):
             if len(a) != len(array):
                 print("Array is not square, Use Matrix Instead")
                 raise DimensionError
-        else:
-            super().__init__(array)
+        super().__init__(array)
 
     def identity_matrix(self, size=None):
         """
@@ -272,42 +267,42 @@ class SquareMatrix(Matrix):
         """
         if self.determinate() == 0:
             raise NoInverseWarning(self.__str__())
+
         # Do ERO on array and identity matrix to get inverse
-        else:
-            new_array = self.identity_matrix()
+        new_array = self.identity_matrix()
 
-            lead = 0
-            for r in range(self.num_rows):
-                if lead >= self.num_columns:
-                    return
-                i = r
-                while self.array[i][lead] == 0:
-                    i += 1
-                    if i == self.num_rows:
-                        i = r
-                        lead += 1
-                        if self.num_columns == lead:
-                            return
-                # Swap Rows
-                self.swap_rows(i, r)
-                new_array.swap_rows(i, r)
+        lead = 0
+        for r in range(self.num_rows):
+            if lead >= self.num_columns:
+                return
+            i = r
+            while self.array[i][lead] == 0:
+                i += 1
+                if i == self.num_rows:
+                    i = r
+                    lead += 1
+                    if self.num_columns == lead:
+                        return
+            # Swap Rows
+            self.swap_rows(i, r)
+            new_array.swap_rows(i, r)
 
-                lv = self.array[r][lead]
+            lv = self.array[r][lead]
 
-                # Multiply row
-                self.multiply_row(r, (1 / lv))
-                new_array.multiply_row(r, (1 / lv))
+            # Multiply row
+            self.multiply_row(r, (1 / lv))
+            new_array.multiply_row(r, (1 / lv))
 
-                for i in range(self.num_rows):
-                    if i != r:
+            for i in range(self.num_rows):
+                if i != r:
 
-                        # Add rows
-                        lv = self.array[i][lead]
-                        self.add_rows(r, i, -lv)
-                        new_array.add_rows(r, i, -lv)
+                    # Add rows
+                    lv = self.array[i][lead]
+                    self.add_rows(r, i, -lv)
+                    new_array.add_rows(r, i, -lv)
 
-                lead += 1
-            self.array = new_array.array
+            lead += 1
+        self.array = new_array.array
 
     def minor(self, row_number, col_number):
         """

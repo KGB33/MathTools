@@ -38,7 +38,7 @@ class TestDivisionPrimalityTest:
 
 class TestSieveOfEratosthenes:
     def test_valid_upper_bound(self):
-        expected = {2, 3, 5, 7, 11, 13, 17, 19}
+        expected = [2, 3, 5, 7, 11, 13, 17, 19]
         assert expected == sieve_of_eratosthenes(20)
 
 
