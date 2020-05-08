@@ -53,8 +53,7 @@ jobs:
       - name: Run Pytest
         run: |
           pytest .
-        
-        
+                
   mypy:
     runs-on: [ubuntu-latest]
     steps:
