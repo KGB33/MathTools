@@ -12,8 +12,12 @@ black = "^19.10b0"
 pytest-cov = "^2.8.1"
 pytest = "^5.3.5"
 mypy = "^0.761"
+<<<<<<< HEAD
 tox = "^3.14.6"
 pylint = "^2.4.4"
+=======
+pylint = "^2.5.2"
+>>>>>>> 874d1f4d18e217f8e6c60c359ec9879ed8aa3811
 
 [build-system]
 requires = ["poetry>=0.12"]
