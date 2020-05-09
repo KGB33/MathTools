@@ -1,4 +1,4 @@
-from mttools.NumberTheoryTools import perfect_factors, gcd, lcf
+from mttools.number_theory_tools import perfect_factors, gcd, lcf
 
 import pytest
 
