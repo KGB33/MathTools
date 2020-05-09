@@ -1,7 +1,7 @@
 import pytest
 
-from mttools.LinearAlgebraTools.Matrix import Matrix
-from mttools.utils.Exceptions import DimensionError
+from mttools.linear_algebra_tools.matrix import Matrix
+from mttools.utils.exceptions import DimensionError
 
 
 class TestInit:

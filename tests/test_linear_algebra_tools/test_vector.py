@@ -2,8 +2,8 @@ import pytest
 
 from math import pi
 
-from mttools.LinearAlgebraTools.Vector import Vector
-from mttools.utils.Exceptions import DimensionError
+from mttools.linear_algebra_tools.vector import Vector
+from mttools.utils.exceptions import DimensionError
 
 
 @pytest.fixture
