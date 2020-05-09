@@ -1,3 +1,7 @@
+"""
+A Collection of geometry realated function and tools.
+"""
+
 from math import sqrt
 
 
