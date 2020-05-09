@@ -2,8 +2,8 @@ from __future__ import (
     annotations,
 )  # Allows Vector type hints before the class is defined
 
-from mttools.utils.Exceptions import DimensionError
-from mttools.Constants import Number
+from mttools.utils.exceptions import DimensionError
+from mttools.utils.types import Number
 from cmath import sqrt, pi, isclose, acos
 from typing import (
     Iterable,

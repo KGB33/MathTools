@@ -1,4 +1,4 @@
-from mttools.utils.Exceptions import DimensionError, NoInverseWarning
+from mttools.utils.exceptions import DimensionError, NoInverseWarning
 
 from math import sqrt, acos, pi, isclose
 
