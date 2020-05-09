@@ -109,3 +109,6 @@ celerybeat.pid
 # Environments
 .env
 .venv
+
+# Mypy
+.mypy_cache/
