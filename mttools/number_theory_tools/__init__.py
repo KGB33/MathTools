@@ -1,3 +1,8 @@
+"""
+A Collection of tools related to the number theory branch of mathmatics.
+These include Primes, Greatest Common Factors, etc. 
+"""
+
 from math import sqrt
 
 from typing import List
