@@ -1,11 +1,7 @@
 from mttools.utils.exceptions import DimensionError, NoInverseWarning
 
-from math import sqrt, acos, pi, isclose
 
-import numbers
-
-
-class Matrix(object):
+class Matrix:
     """
     Models matrix objects
 
@@ -28,8 +24,8 @@ class Matrix(object):
         :param array: (NxM array-like)
             Array of M, N-length arrays
         """
-        for a in array:
-            if len(a) != len(array[0]):
+        for row in array:
+            if len(row) != len(array[0]):
                 print("Array is not rectangular, Cannot be a matrix")
                 raise DimensionError
 
@@ -39,10 +35,10 @@ class Matrix(object):
 
     def __str__(self):
         result = ""
-        for r in self.array:
+        for row in self.array:
             result += "[ "
-            for n in r:
-                result += str(n) + ", "
+            for value in row:
+                result += str(value) + ", "
             result += "]\n"
         return result
 
@@ -55,20 +51,22 @@ class Matrix(object):
         :return: (Matrix Object)
             Product
         """
-        if self.num_columns == other.num_rows:
-            new_array = self.zero_array(
-                num_rows=self.num_rows, num_columns=other.num_columns
+        if self.num_columns != other.num_rows:
+            raise DimensionError(
+                f"The number of columns in the RH maxtrix must equal the number of rows in the LH (got {self.num_columns} and {other.num_rows})"
             )
-            for r, row in enumerate(new_array):
-                for c, val in enumerate(row):
-                    new_array[r][c] = sum(
-                        [
-                            self.array[r][k] * other.array[k][c]
-                            for k in range(self.num_columns)
-                        ]
-                    )
-            return self.__class__(new_array)
-        raise DimensionError
+        new_array = self.zero_array(
+            num_rows=self.num_rows, num_columns=other.num_columns
+        )
+        for r, row in enumerate(new_array):
+            for c, _ in enumerate(row):
+                new_array[r][c] = sum(
+                    [
+                        self.array[r][k] * other.array[k][c]
+                        for k in range(self.num_columns)
+                    ]
+                )
+        return self.__class__(new_array)
 
     def __add__(self, other):
         """
@@ -80,13 +78,13 @@ class Matrix(object):
         :return: (Matrix object)
             Sum of self + other
         """
-        if self.num_rows == other.num_rows and self.num_columns == other.num_columns:
-            new_array = self.zero_array()
-            for r, (s_row, o_row) in enumerate(zip(self.array, other.array)):
-                for c, (s_val, o_val) in enumerate(zip(s_row, o_row)):
-                    new_array[r][c] = s_val + o_val
-            return self.__class__(new_array)
-        raise DimensionError
+        if self.num_rows != other.num_rows or self.num_columns != other.num_columns:
+            raise DimensionError
+        new_array = self.zero_array()
+        for r, (s_row, o_row) in enumerate(zip(self.array, other.array)):
+            for c, (s_val, o_val) in enumerate(zip(s_row, o_row)):
+                new_array[r][c] = s_val + o_val
+        return self.__class__(new_array)
 
     def zero_array(self, num_rows=None, num_columns=None):
         """
@@ -241,8 +239,7 @@ class SquareMatrix(Matrix):
         """
         for a in array:
             if len(a) != len(array):
-                print("Array is not square, Use Matrix Instead")
-                raise DimensionError
+                raise DimensionError("Array is not square, Use Matrix Instead")
         super().__init__(array)
 
     def identity_matrix(self, size=None):

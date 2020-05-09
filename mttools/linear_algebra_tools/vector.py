@@ -1,24 +1,21 @@
 from __future__ import (
     annotations,
 )  # Allows Vector type hints before the class is defined
-
-from mttools.utils.exceptions import DimensionError
-from mttools.utils.types import Number
-from cmath import sqrt, pi, isclose, acos
 from typing import (
-    Iterable,
     Any,
     Literal,
     Union,
-    Type,
     TypedDict,
     Tuple,
     List,
     cast,
     overload,
 )
-
+from cmath import sqrt, pi, isclose, acos
 import numbers
+
+from mttools.utils.exceptions import DimensionError
+from mttools.utils.types import Number
 
 # Types
 class Components(TypedDict):
@@ -28,7 +25,7 @@ class Components(TypedDict):
 
 class Vector:
     def __init__(self, coords: Union[Tuple[Number], List[Number]]):
-        if isinstance(coords, tuple) or isinstance(coords, list):
+        if isinstance(coords, (tuple, list)):
             if not coords:
                 raise ValueError("Coords must not be empty.")
             self.coords = tuple(coords)
@@ -43,7 +40,7 @@ class Vector:
     @property
     def direction(self) -> List[Number]:
         if self.magnitude == 0:
-            raise ZeroDivisionError(f"Cannot normalize the zero vector.")
+            raise ZeroDivisionError("Cannot normalize the zero vector.")
         return [a / self.magnitude for a in self.coords]
 
     def normalize(self) -> Vector:
@@ -91,10 +88,9 @@ class Vector:
             if isinstance(other, numbers.Number):
                 other = cast(Number, other)
                 return self._scalar_mul(other)
-            else:
-                raise TypeError(
-                    f"Expected Type 'Vector' or 'numbers.real', got type '{type(other)}'."
-                )
+            raise TypeError(
+                f"Expected Type 'Vector' or 'numbers.real', got type '{type(other)}'."
+            )
 
     def __rmul__(self, other: Number) -> Vector:
         return self * other
