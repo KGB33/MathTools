@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "MtTools"
+name = "mttools"
 version = "0.1.2"
 description = "A Collection of Mathmatical Tools"
 authors = ["kgb33 <github@bassingthwaite.org>"]
