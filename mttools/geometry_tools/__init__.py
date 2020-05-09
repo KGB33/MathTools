@@ -5,10 +5,10 @@ A Collection of geometry realated function and tools.
 from math import sqrt
 from typing import List
 
-from mttools.utils.Types import Numeric
+from mttools.utils.types import Number
 
 
-def distance(start: List[Numeric], end: List[Numeric]) -> Numeric:
+def distance(start: List[Number], end: List[Number]) -> Number:
     """
     Calculates the Euclidean distance between two points.
         Points must have the same dimensions
