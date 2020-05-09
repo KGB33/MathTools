@@ -2,30 +2,28 @@
 A Collection of geometry realated function and tools.
 """
 
+from utils.Types import Numeric
+
 from math import sqrt
 
 
-def distance(cord_1, cord_2):
+def distance(start: List[Numeric], end: List[Numeric]) -> Numeric:
     """
     Calculates the Euclidean distance between two points.
         Points must have the same dimensions
 
-    :param cord_1: (Array-like, numeric)
-        Coords of First Point
-
-    :param cord_2: (Array-like, numeric)
-        Coords of Second Point
-
-    :return: (float)
-        Distance between the two points
 
     Examples:
-        distance([0], [5])) --> 5
-        distance([0, 0, 0, 0], [5, 5, 5, 5]) --> 10
+
+    >>> distance([0], [5]))
+    5
+       
+    >>> distance([0, 0, 0, 0], [5, 5, 5, 5])
+    10
 
     """
-    if len(cord_1) == len(cord_2):
-        sum_squares = 0
-        for i, j in zip(cord_1, cord_2):
-            sum_squares += pow(i - j, 2)
-        return sqrt(sum_squares)
+    if len(start) != len(end):
+        raise ValueError(
+            f"start and end must have the same length, got {len(start)} and {len(end)}"
+        )
+    return sqrt(sum([pow(i - j, 2) for i, j in zip(start, end)]))
