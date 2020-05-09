@@ -2,9 +2,10 @@
 A Collection of geometry realated function and tools.
 """
 
-from utils.Types import Numeric
-
 from math import sqrt
+from typing import List
+
+from mttools.utils.Types import Numeric
 
 
 def distance(start: List[Numeric], end: List[Numeric]) -> Numeric:
@@ -17,7 +18,6 @@ def distance(start: List[Numeric], end: List[Numeric]) -> Numeric:
 
     >>> distance([0], [5]))
     5
-       
     >>> distance([0, 0, 0, 0], [5, 5, 5, 5])
     10
 
