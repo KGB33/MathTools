@@ -1,13 +1,13 @@
-from mttools.utils.Exceptions import (
+from mttools.utils.exceptions import (
     InconsistentWarning,
     InfiniteSolutionsWaring,
     UnderDeterminedError,
 )
 
-from .Matrix import Matrix
+from .matrix import Matrix
 
 from typing import List
-from mttools.Constants import RealNumber
+from mttools.utils.types import RealNumber
 
 
 def solve_linear_equations(*args: List[RealNumber]) -> List[RealNumber]:

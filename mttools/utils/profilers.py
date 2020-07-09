@@ -1,15 +1,21 @@
 """
 Tools used for profiling tests for efficiency
 """
+from statistics import mean
 from typing import Literal, Callable
 from time import perf_counter_ns
 
 
-class Timer(object):
+class Timer:
+    """
+    A Decorater to mesure the runtime of a function.
+    """
 
-    # TODO: add optional param for number of trials, then average
     def __init__(
-        self, unit: Literal["ns", "us", "ms", "s", "min"] = "ms", message: str = None
+        self,
+        unit: Literal["ns", "us", "ms", "s", "min"] = "ms",
+        message: str = None,
+        trials: int = 1,
     ):
         """
         Decorator that times the function runtime, then prints the result
@@ -20,27 +26,35 @@ class Timer(object):
         """
         self.unit = unit
         self.message = message
+        self.num_trials = trials
 
-    def __call__(self, f: Callable):
-        # TODO: Add a user friendly error message for when the () are forgotten
+    def __call__(self, func: Callable):
         """
-        f: The function to be timed
+        func: The function to be timed
         """
 
         def wrapper_timer(*args, **kwargs):
-            before = perf_counter_ns()
-            rv = f(*args, **kwargs)
-            after = perf_counter_ns()
+            times = []
+            for _ in range(self.num_trials):
+                before = perf_counter_ns()
+                return_value = func(*args, **kwargs)
+                after = perf_counter_ns()
+                times.append(after - before)
+            av_time = mean(times)
             conversion = self.convert_time()
-            time = "{:.3f}".format((after - before) / conversion)
+            time = "{:.3f}".format(av_time / conversion)
             print("\n\nTime Elapsed: {0}{1}".format(time, self.unit))
             if self.message is not None:
                 print("\t{}".format(self.message))
-            return rv
+            return return_value
 
         return wrapper_timer
 
     def convert_time(self) -> int:
+        """
+        returns the correct conversion
+        factor for the given unit
+        """
         if self.unit == "ns":
             conversion = pow(10, 0)
         elif self.unit == "us":

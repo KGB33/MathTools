@@ -1,11 +1,11 @@
 import pytest
 
-from mttools.utils.Exceptions import (
+from mttools.utils.exceptions import (
     InconsistentWarning,
     InfiniteSolutionsWaring,
     UnderDeterminedError,
 )
-from mttools.LinearAlgebraTools import solve_linear_equations
+from mttools.linear_algebra_tools import solve_linear_equations
 
 
 class TestLinearEquationSolver:
