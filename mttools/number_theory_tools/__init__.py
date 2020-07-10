@@ -54,15 +54,8 @@ def gcd(a: int, b: int) -> int:
     return gcd(b, a % b)
 
 
-def lcf(a: int, b: int) -> int:
-    """
-    Finds the Least Common Factor of two integers.
-    """
-    pass
-
-
 def lcm(a: int, b: int) -> int:
     """
     Finds the Least Common Multiple of two integers.
     """
-    pass
+    return (a * b) / gcd(a, b)
