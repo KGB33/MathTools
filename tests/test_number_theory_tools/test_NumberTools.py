@@ -1,4 +1,4 @@
-from mttools.number_theory_tools import perfect_factors, gcd, lcf
+from mttools.number_theory_tools import perfect_factors, gcd
 
 import pytest
 
@@ -36,10 +36,3 @@ class TestGCD:
     )
     def test_gcd(self, a, b, e):
         assert e == gcd(a, b)
-
-
-class TestLCF:
-    @pytest.mark.xfail(reason="Not Implemented")
-    @pytest.mark.parametrize("a,b,expected", [(10, 5, 5),])
-    def test_lcf(self, a, b, expected):
-        assert expected == lcf(a, b)
