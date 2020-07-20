@@ -48,10 +48,12 @@ pip install mttools
   Pull requests are welcome!
   
   All pull requests must have:
-    * Type hints
-    * Hypothosis testing (if possable)
-    * 100% test coverage
+    
+  * Type hints
+  * Hypothosis testing (if possable)
+  * 100% test coverage
     
   For bug fixes:
-    * Add a test checking for that error.
+    
+   * Add a test checking for that error.
   
