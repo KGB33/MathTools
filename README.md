@@ -4,27 +4,36 @@ MathTools is a library containing a mountan of various algorithms, formulas, and
 
 ## Getting Started
 
-### Requirments
+### System Requirments
   * Python 3.8+
-  * poetry (recomended)
   
-### Installation
-  Create and activate a virtual envrionment, then install MathTools.
+## Installation
+
+### Using Pip
+
+```
+pip install mttools
+```
+
+### From source
   
-  
-  Using poetry:
-  
+  First, clone this repository.
   ```
-  poetry install
-  poetry shell
+  git clone git@github.com:KGB33/MathTools.git
+  ```
+  or, using HTTPS
+  ```
+  git clone https://github.com/KGB33/MathTools.git
   ```
   
-  Using pip:
+  Then, create a virtual environment and Install.
   ```
   python -m venv .venv
   source .venv/bin/activate
   pip install . -e
   ```
+
+  
   
 ### Tests
 
