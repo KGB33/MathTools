@@ -1,9 +1,12 @@
+import pytest
+
 from mttools.number_theory_tools.Primes import (
     division_primality_test,
     fermat_primality_test,
     largest_prime_less_than,
     prime_factors,
     sieve_of_eratosthenes,
+    lucas_lehmer_primality_test,
 )
 
 
@@ -65,3 +68,15 @@ class TestLargestPrimeLessThan:
 
     def test_primes_less_than_large_num(self):
         assert 105023 == largest_prime_less_than(105030)
+
+
+class TestLucasLehmerPrimalityTest:
+    def test_requires_mersenne_number(self):
+        with pytest.raises(ValueError):
+            lucas_lehmer_primality_test(25)
+
+    def test_with_prime(self):
+        assert lucas_lehmer_primality_test(2 ** 31 - 1)
+
+    def test_with_composite(self):
+        assert not lucas_lehmer_primality_test(2 ** 30 - 1)

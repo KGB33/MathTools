@@ -161,3 +161,30 @@ def largest_prime_less_than(num: int) -> Optional[int]:
             return i
     else:
         return None
+
+
+def lucas_lehmer_primality_test(num: int) -> bool:
+    """
+    Uses Lucas–Lehmer primality test to test for primality of Mersenne numbers.
+
+    params:
+        num: Mersenne number to test primality of
+
+    return:
+        True if num is prime, False if it is not
+    """
+    if num < 7:
+        if num == 1:
+            return False
+        if num == 3:
+            return True
+        raise ValueError("num must be a mersenne number")
+
+    p = num.bit_length()
+    if 2 ** p - 1 != num:
+        raise ValueError("num must be a mersenne number")
+
+    s = 4
+    for _ in range(p - 2):
+        s = ((s * s) - 2) % num
+    return s == 0
