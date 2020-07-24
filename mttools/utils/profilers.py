@@ -19,9 +19,9 @@ class Timer:
     ):
         """
         Decorator that times the function runtime, then prints the result
-        
+
         unit (optional): Unit that the time is displayed in, default is ms
-        
+
         message (optional): Message that is printed with the elapsed time
         """
         self.unit = unit

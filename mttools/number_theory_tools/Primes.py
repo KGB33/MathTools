@@ -69,7 +69,7 @@ def division_primality_test(p: int) -> bool:
     """
     Standard division test for primality
 
-    params: 
+    params:
         p: Number that is being tested for primality
     """
     # negatives, 0, 1 are not prime

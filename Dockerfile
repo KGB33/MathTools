@@ -9,6 +9,3 @@ COPY mttools/ mttools/
 COPY tests/ tests/
 
 RUN poetry install
-
-
-

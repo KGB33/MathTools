@@ -16,5 +16,5 @@ class Term:
 
 class PowerTerm(Term):
     """
-    A Term for 
+    A Term for
     """

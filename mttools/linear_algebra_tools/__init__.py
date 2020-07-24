@@ -16,7 +16,7 @@ def solve_linear_equations(*args: List[RealNumber]) -> List[RealNumber]:
 
     params:
         args:
-            An ordered list of the coefficients for an equation, 
+            An ordered list of the coefficients for an equation,
             where the last number is the RH side
 
     return:

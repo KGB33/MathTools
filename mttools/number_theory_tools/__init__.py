@@ -1,6 +1,6 @@
 """
 A Collection of tools related to the number theory branch of mathmatics.
-These include Primes, Greatest Common Factors, etc. 
+These include Primes, Greatest Common Factors, etc.
 """
 
 from math import sqrt
