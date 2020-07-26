@@ -2,7 +2,7 @@
 A Collection of geometry realated function and tools.
 """
 
-from math import sqrt
+from math import sqrt, pi
 from typing import List
 
 from mttools.utils.types import Number
@@ -27,3 +27,18 @@ def distance(start: List[Number], end: List[Number]) -> Number:
             f"start and end must have the same length, got {len(start)} and {len(end)}"
         )
     return sqrt(sum([pow(i - j, 2) for i, j in zip(start, end)]))
+
+
+def area_of_circle(radius: Number) -> Number:
+    """
+    Calculates the area of a Circle with a given radius
+
+    Examples:
+
+    >>> area_of_circle(3)
+    28.274333882308138
+    >>> area_of_circle(-48)
+    7238.229473870883
+
+    """
+    return radius * radius * pi
