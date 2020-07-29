@@ -1,10 +1,10 @@
 # MathTools
 
-MathTools is a library containing a mountan of various algorithms, formulas, and profilers for mathmatic and sicentific computations
+MathTools is a library containing a mountain of various algorithms, formulas, and profilers for mathematical and scientific computations
 
 ## Getting Started
 
-### System Requirments
+### System Requirements
   * Python 3.8+
 
 ## Installation
@@ -50,9 +50,11 @@ pip install mttools
   All pull requests must have:
 
   * Type hints
-  * Hypothosis testing (if possable)
+  * Hypothesis testing (if possible)
   * 100% test coverage
 
   For bug fixes:
 
    * Add a test checking for that error.
+
+
