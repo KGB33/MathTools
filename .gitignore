@@ -111,5 +111,8 @@ celerybeat.pid
 .env
 .venv
 
+# Github workflow
+.github
+
 # Mypy
 .mypy_cache/
