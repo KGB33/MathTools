@@ -41,7 +41,7 @@ class TestAreaOfCircle:
 class TestRectBar:
     def test_rect_bar(self):
         assert rect_bar(3, 0.5) == {
-            "Centroid": (1.5, 0.25),
+            "Centroid": (0.25, 1.5),
             "Area": 1.5,
             "Ixx": 1.125,
             "Iyy": 0.03125,
@@ -91,7 +91,7 @@ class TestRoundBar:
 class TestTbeam:
     def test_Tbeam(self):
         assert Tbeam(4, 0.5, 4, 0.5) == {
-            "Centroid": (2.8166666666666664, 2.0),
+            "Centroid": (2.0, 2.8166666666666664),
             "Area": 3.75,
             "Ixx": 5.5614583333333325,
             "Iyy": 2.703125,
@@ -107,7 +107,7 @@ class TestTbeam:
 class TestIbeam_equal_flange:
     def test_Ibeam_equal_flange(self):
         assert Ibeam_equal_flange(8, 0.5, 6, 0.75) == {
-            "Centroid": (4.0, 3.0),
+            "Centroid": (3.0, 4.0),
             "Area": 12.25,
             "Ixx": 130.13020833333334,
             "Iyy": 27.067708333333332,
@@ -123,7 +123,7 @@ class TestIbeam_equal_flange:
 class TestIbeam_unequal_flange:
     def test_Ibeam_unequal_flange(self):
         assert Ibeam_unequal_flange(8, 0.5, 9, 0.75, 6, 1) == {
-            "Centroid": (4.243110236220472, 4.5),
+            "Centroid": (4.5, 4.243110236220472),
             "Area": 15.875,
             "Ixx": 172.29872559875326,
             "Iyy": 63.627604166666664,

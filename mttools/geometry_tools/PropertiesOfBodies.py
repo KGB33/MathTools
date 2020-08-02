@@ -9,7 +9,7 @@ def rect_bar(depth: RealNumber, thickness: RealNumber) -> dict:
         Ixx is strong axis and Iyy is weak axis.
 
     >>> bar(3, 0.5)
-    {'Centroid': (1.5, 0.25), 'Area': 1.5, 'Ixx': 1.125, 'Iyy': 0.03125, 'Sx': 0.75, 'Sy': 0.125}
+    {'Centroid': (0.25, 1.5), 'Area': 1.5, 'Ixx': 1.125, 'Iyy': 0.03125, 'Sx': 0.75, 'Sy': 0.125}
 
     """
     if any((depth <= 0, thickness <= 0)):
@@ -21,7 +21,7 @@ def rect_bar(depth: RealNumber, thickness: RealNumber) -> dict:
     Ixx = depth ** 3 * thickness / 12
     Iyy = thickness ** 3 * depth / 12
     return {
-        "Centroid": (y, x),
+        "Centroid": (x, y),
         "Area": area,
         "Ixx": Ixx,
         "Iyy": Iyy,
@@ -81,7 +81,7 @@ def Tbeam(
         depth is the total depth of the web (stem) and flange
 
     >>> tbeam(4, 0.5, 4, 0.5)
-    {'Centroid': (2.8166666666666664, 2.0), 'Area': 3.75,
+    {'Centroid': (2.0, 2.8166666666666664), 'Area': 3.75,
      'Ixx': 5.5614583333333325, 'Iyy': 2.703125,
      'Sx': 1.9744822485207099, 'Sy': 1.3515625}
     """
@@ -111,7 +111,7 @@ def Tbeam(
         web_thickness ** 3 * web_height / 12 + flange_width ** 3 * flange_thickness / 12
     )
     return {
-        "Centroid": (y, x),
+        "Centroid": (x, y),
         "Area": area,
         "Ixx": Ixx,
         "Iyy": Iyy,
@@ -136,7 +136,7 @@ def Ibeam_equal_flange(
         depth is the total depth of the web (stem) and flange
 
     >>> Ibeam_equalflange(8, 0.5, 6, 0.75)
-    {'Centroid': (4.0, 3.0), 'Area': 12.25,
+    {'Centroid': (3.0, 4.0), 'Area': 12.25,
      'Ixx': 130.13020833333334, 'Iyy': 27.067708333333332,
      'Sx': 32.532552083333336, 'Sy': 9.022569444444445}
     """
@@ -155,7 +155,7 @@ def Ibeam_equal_flange(
         + web_thickness ** 3 * web_height / 12
     )
     return {
-        "Centroid": (y, x),
+        "Centroid": (x, y),
         "Area": area,
         "Ixx": Ixx,
         "Iyy": Iyy,
@@ -182,7 +182,7 @@ def Ibeam_unequal_flange(
         depth is the total depth of the web (stem) and flange
 
     >>> Ibeam_unequal_flange(8, 0.5, 9, 0.75, 6, 1)
-    {'Centroid': (4.243110236220472, 4.5), 'Area': 15.875,
+    {'Centroid': (4.5, 4.243110236220472), 'Area': 15.875,
     'Ixx': 172.29872559875326, 'Iyy': 63.627604166666664,
     'Sx': 40.60670498917498, 'Sy': 14.139467592592592}
     """
@@ -227,7 +227,7 @@ def Ibeam_unequal_flange(
         + web_thickness ** 3 * web_height / 12
     )
     return {
-        "Centroid": (y, x),
+        "Centroid": (x, y1),
         "Area": area,
         "Ixx": Ixx,
         "Iyy": Iyy,
