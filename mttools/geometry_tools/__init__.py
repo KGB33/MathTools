@@ -16,9 +16,6 @@ from .PropertiesOfBodies import (
 )
 
 
-__all__ = ["bar", "Tbeam", "Ibeam_equal_flange", "Ibeam_unequal_flange"]
-
-
 def distance(start: List[Number], end: List[Number]) -> Number:
     """
     Calculates the Euclidean distance between two points.
@@ -52,4 +49,5 @@ def area_of_circle(radius: Number) -> Number:
     7238.229473870883
 
     """
+    radius = abs(radius)
     return radius * radius * pi
