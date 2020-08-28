@@ -51,5 +51,5 @@ def area_of_circle(radius: Number) -> Number:
     40.840704496667314
 
     """
-    radius = abs(radius)
+    radius = sqrt(radius.real * radius.real + radius.imag * radius.imag)
     return radius * radius * pi
