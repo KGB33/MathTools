@@ -2,7 +2,7 @@
 A Collection of geometry realated function and tools.
 """
 
-from math import sqrt, pi, tan, atan, radians, degrees
+from math import sqrt, pi
 from typing import List
 
 from mttools.utils.types import Number, RealNumber
