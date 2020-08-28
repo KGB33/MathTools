@@ -1,4 +1,6 @@
 from math import pi
+from typing import Tuple
+
 from mttools.utils.types import RealNumber
 
 
@@ -167,10 +169,8 @@ def Ibeam_equal_flange(
 def Ibeam_unequal_flange(
     depth: RealNumber,
     web_thickness: RealNumber,
-    top_flange_width: RealNumber,
-    top_flange_thickness: RealNumber,
-    btm_flange_width: RealNumber,
-    btm_flange_thickness: RealNumber,
+    top_flange: Tuple[RealNumber],
+    btm_flange: Tuple[RealNumber],
 ) -> dict:
     """
     Calculates the Centroid, Area, Moment of Inetia, and Section Modulus  of an I beam.
@@ -181,11 +181,15 @@ def Ibeam_unequal_flange(
 
         depth is the total depth of the web (stem) and flange
 
+        top flange / btm flange inputs are (width, thickness)
+
     >>> Ibeam_unequal_flange(8, 0.5, 9, 0.75, 6, 1)
     {'Centroid': (4.5, 4.243110236220472), 'Area': 15.875,
     'Ixx': 172.29872559875326, 'Iyy': 63.627604166666664,
     'Sx': 40.60670498917498, 'Sy': 14.139467592592592}
     """
+    top_flange_width, top_flange_thickness = top_flange
+    btm_flange_width, btm_flange_thickness = btm_flange
     if any(
         (
             depth <= 0,

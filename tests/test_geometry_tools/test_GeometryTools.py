@@ -127,7 +127,7 @@ class TestIbeam_equal_flange:
 
 class TestIbeam_unequal_flange:
     def test_Ibeam_unequal_flange(self):
-        assert Ibeam_unequal_flange(8, 0.5, 9, 0.75, 6, 1) == {
+        assert Ibeam_unequal_flange(8, 0.5, (9, 0.75), (6, 1)) == {
             "Centroid": (4.5, 4.243110236220472),
             "Area": 15.875,
             "Ixx": 172.29872559875326,
@@ -138,4 +138,4 @@ class TestIbeam_unequal_flange:
 
     def test_negative_Ibeam_unequal_flange(self):
         with raises(ValueError):
-            Ibeam_unequal_flange(6, 2, 0, 0.5, -4, 1)
+            Ibeam_unequal_flange(6, 2, (0, 0.5), (-4, 1))
