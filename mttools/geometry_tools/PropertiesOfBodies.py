@@ -1,17 +1,18 @@
 from math import pi
-from typing import Tuple
+from typing import Tuple, Dict
 
 from mttools.utils.types import RealNumber
 
 
-def rect_bar(depth: RealNumber, thickness: RealNumber) -> dict:
+def rect_bar(depth: RealNumber, thickness: RealNumber) -> Dict[str, float]:
     """
     Calculates the Centroid, Area, Moment of Inetia, and Section Modulus  of a rectangular bar.
         The assumed orientation is with the depth along the y axis so that
         Ixx is strong axis and Iyy is weak axis.
 
-    >>> bar(3, 0.5)
-    {'Centroid': (0.25, 1.5), 'Area': 1.5, 'Ixx': 1.125, 'Iyy': 0.03125, 'Sx': 0.75, 'Sy': 0.125}
+    >>> rect_bar(3, 0.5)
+    {'Centroid X': 0.25, 'Centroid Y': 1.5, 'Area': 1.5,
+     'Ixx': 1.125, 'Iyy': 0.03125, 'Sx': 0.75, 'Sy': 0.125}
 
     """
     if any((depth <= 0, thickness <= 0)):
@@ -23,7 +24,8 @@ def rect_bar(depth: RealNumber, thickness: RealNumber) -> dict:
     Ixx = depth ** 3 * thickness / 12
     Iyy = thickness ** 3 * depth / 12
     return {
-        "Centroid": (x, y),
+        "Centroid X": x,
+        "Centroid Y": y,
         "Area": area,
         "Ixx": Ixx,
         "Iyy": Iyy,
@@ -32,7 +34,9 @@ def rect_bar(depth: RealNumber, thickness: RealNumber) -> dict:
     }
 
 
-def round_bar(outside_diameter: RealNumber, inside_diameter: RealNumber = None) -> dict:
+def round_bar(
+    outside_diameter: RealNumber, inside_diameter: RealNumber = None
+) -> Dict[str, float]:
     """
     Calculates the Centroid, Area, Moment of Inetia, and Section Modulus  of a round bar.
         The assumed orientation is with the depth along the y axis so that
@@ -72,7 +76,7 @@ def Tbeam(
     web_thickness: RealNumber,
     flange_width: RealNumber,
     flange_thickness: RealNumber,
-) -> dict:
+) -> Dict[str, float]:
     """
     Calculates the Centroid, Area, Moment of Inetia, and Section Modulus  of a T beam.
         The assumed orientation is with the depth along the y axis and the flange on top
@@ -82,8 +86,8 @@ def Tbeam(
 
         depth is the total depth of the web (stem) and flange
 
-    >>> tbeam(4, 0.5, 4, 0.5)
-    {'Centroid': (2.0, 2.8166666666666664), 'Area': 3.75,
+    >>> Tbeam(4, 0.5, 4, 0.5)
+    {'Centroid X': 2.0, 'Centroid Y': 2.8166666666666664, 'Area': 3.75,
      'Ixx': 5.5614583333333325, 'Iyy': 2.703125,
      'Sx': 1.9744822485207099, 'Sy': 1.3515625}
     """
@@ -113,7 +117,8 @@ def Tbeam(
         web_thickness ** 3 * web_height / 12 + flange_width ** 3 * flange_thickness / 12
     )
     return {
-        "Centroid": (x, y),
+        "Centroid X": x,
+        "Centroid Y": y,
         "Area": area,
         "Ixx": Ixx,
         "Iyy": Iyy,
@@ -127,7 +132,7 @@ def Ibeam_equal_flange(
     web_thickness: RealNumber,
     flange_width: RealNumber,
     flange_thickness: RealNumber,
-) -> dict:
+) -> Dict[str, float]:
     """
     Calculates the Centroid, Area, Moment of Inetia, and Section Modulus  of an I beam.
         The assumed orientation is with the depth along the y axis so that
@@ -137,8 +142,8 @@ def Ibeam_equal_flange(
 
         depth is the total depth of the web (stem) and flange
 
-    >>> Ibeam_equalflange(8, 0.5, 6, 0.75)
-    {'Centroid': (3.0, 4.0), 'Area': 12.25,
+    >>> Ibeam_equal_flange(8, 0.5, 6, 0.75)
+    {'Centroid X': 3.0, 'Centroid Y': 4.0, 'Area': 12.25,
      'Ixx': 130.13020833333334, 'Iyy': 27.067708333333332,
      'Sx': 32.532552083333336, 'Sy': 9.022569444444445}
     """
@@ -157,7 +162,8 @@ def Ibeam_equal_flange(
         + web_thickness ** 3 * web_height / 12
     )
     return {
-        "Centroid": (x, y),
+        "Centroid X": x,
+        "Centroid Y": y,
         "Area": area,
         "Ixx": Ixx,
         "Iyy": Iyy,
@@ -169,9 +175,9 @@ def Ibeam_equal_flange(
 def Ibeam_unequal_flange(
     depth: RealNumber,
     web_thickness: RealNumber,
-    top_flange: Tuple[RealNumber],
-    btm_flange: Tuple[RealNumber],
-) -> dict:
+    top_flange: Tuple[RealNumber, RealNumber],
+    btm_flange: Tuple[RealNumber, RealNumber],
+) -> Dict[str, float]:
     """
     Calculates the Centroid, Area, Moment of Inetia, and Section Modulus  of an I beam.
         The assumed orientation is with the depth along the y axis so that
@@ -183,8 +189,8 @@ def Ibeam_unequal_flange(
 
         top flange / btm flange inputs are (width, thickness)
 
-    >>> Ibeam_unequal_flange(8, 0.5, 9, 0.75, 6, 1)
-    {'Centroid': (4.5, 4.243110236220472), 'Area': 15.875,
+    >>> Ibeam_unequal_flange(8, 0.5, (9, 0.75), (6, 1))
+    {'Centroid X': 4.5, 'Centroid Y': 4.243110236220472, 'Area': 15.875,
     'Ixx': 172.29872559875326, 'Iyy': 63.627604166666664,
     'Sx': 40.60670498917498, 'Sy': 14.139467592592592}
     """
@@ -231,7 +237,8 @@ def Ibeam_unequal_flange(
         + web_thickness ** 3 * web_height / 12
     )
     return {
-        "Centroid": (x, y1),
+        "Centroid X": x,
+        "Centroid Y": y1,
         "Area": area,
         "Ixx": Ixx,
         "Iyy": Iyy,

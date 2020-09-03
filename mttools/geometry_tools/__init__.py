@@ -5,15 +5,8 @@ A Collection of geometry realated function and tools.
 from math import sqrt, pi
 from typing import List
 
-from mttools.utils.types import Number, RealNumber
+from mttools.utils.types import Number
 from mttools.utils.exceptions import DimensionError
-from .PropertiesOfBodies import (
-    rect_bar,
-    round_bar,
-    Tbeam,
-    Ibeam_equal_flange,
-    Ibeam_unequal_flange,
-)
 
 
 def distance(start: List[Number], end: List[Number]) -> Number:
