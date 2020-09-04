@@ -77,7 +77,7 @@ class TestAreaOfCircle:
 ```
 
 The first test checks the correctness of one particular input.
-whereas the second tests a property for several differnt inputs.
+whereas the second tests a property for several different inputs.
 In this case the property revolves around r^2 == (-r)^2.
 
 Then, run `git status`

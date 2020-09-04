@@ -6,6 +6,7 @@ from math import sqrt, pi
 from typing import List
 
 from mttools.utils.types import Number
+from mttools.utils.exceptions import DimensionError
 
 
 def distance(start: List[Number], end: List[Number]) -> Number:
@@ -39,6 +40,9 @@ def area_of_circle(radius: Number) -> Number:
     28.274333882308138
     >>> area_of_circle(-48)
     7238.229473870883
+    >>> area_of_circle(3+2j)
+    40.840704496667314
 
     """
+    radius = sqrt(radius.real * radius.real + radius.imag * radius.imag)
     return radius * radius * pi

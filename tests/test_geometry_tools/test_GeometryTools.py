@@ -1,5 +1,6 @@
 from hypothesis import given
 import hypothesis.strategies as st
+from pytest import raises
 
 from mttools.geometry_tools import distance, area_of_circle
 
@@ -23,7 +24,12 @@ class TestAreaOfCircle:
     def test_interger_radius(self):
         assert area_of_circle(3) == 28.274333882308138
 
-    @given(st.floats(allow_nan=False))
+    @given(st.floats(allow_nan=False, allow_infinity=False))
     def test_inverse_radius_gives_same_area(self, radius):
+        inverse_radius = radius * -1
+        assert area_of_circle(radius) == area_of_circle(inverse_radius)
+
+    @given(st.complex_numbers(allow_nan=False, allow_infinity=False))
+    def test_inverse_complex_radius(self, radius):
         inverse_radius = radius * -1
         assert area_of_circle(radius) == area_of_circle(inverse_radius)
